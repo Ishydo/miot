@@ -18,7 +18,7 @@ class PointOfInterest(models.Model):
     slug = AutoSlugField(populate_from='name')
     created = models.DateTimeField(auto_now_add=True, editable=False)
     last_updated = models.DateTimeField(auto_now=True, editable=False)
-    featured_image = models.ImageField(upload_to="media/uploads/poi")
+    featured_image = models.ImageField(upload_to="uploads/poi")
     position = gmodels.PointField()
     tags = TaggableManager()
     active = models.BooleanField(default=True)
@@ -31,7 +31,7 @@ class Template(models.Model):
     created = models.DateTimeField(auto_now_add=True, editable=False)
     last_updated = models.DateTimeField(auto_now=True, editable=False)
     short_description = models.CharField(max_length=255)
-    featured_image = models.ImageField(upload_to="media/uploads/templates")
+    featured_image = models.ImageField(upload_to="uploads/templates")
 
     def __str__(self):
         return self.name
@@ -43,6 +43,7 @@ class Page(models.Model):
     content = models.TextField()
     poi = models.ForeignKey('PointOfInterest', on_delete=models.CASCADE)
     template = models.ForeignKey('Template', on_delete=models.CASCADE)
+    slug = AutoSlugField(populate_from="title")
 
     def __str__(self):
         return self.title
