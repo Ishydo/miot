@@ -39,7 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django_extensions',
-    'geoposition',
+    'mapwidgets',
     'taggit',
     'allauth',
     'allauth.account',
@@ -94,7 +94,7 @@ WSGI_APPLICATION = 'miotProject.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
+        'ENGINE': 'django.contrib.gis.db.backends.postgis',
         'NAME': os.environ.get('MIOT_DB_NAME', False),
         'USER': os.environ.get('MIOT_DB_USER', False),
         'PASSWORD': os.environ.get('MIOT_DB_PASSWORD', False),
@@ -142,9 +142,15 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
+MAP_WIDGETS = {
+    "GooglePointFieldWidget": (
+        ("zoom", 15),
+        ("mapCenterLocationName", "london"),
+        ("markerFitZoom", 12),
+    ),
+    "GOOGLE_MAP_API_KEY": os.environ.get('MIOT_GOOGLEMAP', False)
+}
 
-# For django GeopositionField
-GEOPOSITION_GOOGLE_MAPS_API_KEY = os.environ.get('MIOT_GOOGLEMAP_API_KEY', False),
 
 # Insensitive django-taggit
 TAGGIT_CASE_INSENSITIVE = True

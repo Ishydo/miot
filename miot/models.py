@@ -1,7 +1,7 @@
 from django.db import models
-from geoposition.fields import GeopositionField
 from django_extensions.db.fields import AutoSlugField
 from taggit.managers import TaggableManager
+from django.contrib.gis.db import models as gmodels
 
 class Category(models.Model):
     name = models.CharField(max_length=120)
@@ -19,7 +19,7 @@ class PointOfInterest(models.Model):
     created = models.DateTimeField(auto_now_add=True, editable=False)
     last_updated = models.DateTimeField(auto_now=True, editable=False)
     featured_image = models.ImageField(upload_to="media/uploads/poi")
-    position = GeopositionField()
+    position = gmodels.PointField()
     tags = TaggableManager()
     active = models.BooleanField(default=True)
 
