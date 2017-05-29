@@ -1,7 +1,21 @@
 from django.db import models
+from django.db.models.signals import post_save
 from django_extensions.db.fields import AutoSlugField
 from taggit.managers import TaggableManager
 from django.contrib.gis.db import models as gmodels
+from django.conf import settings
+from django.dispatch import receiver
+
+USER_MODEL = getattr(settings, 'AUTH_USER_MODEL', 'auth.User')
+
+class Profile(models.Model):
+    user = models.OneToOneField(USER_MODEL, blank=True, null=True)
+
+    def fetchPointOfInterests(self):
+        return PointOfInterest.objects.filter(creator=self)
+
+    def __str__(self):
+        return self.user.username
 
 class Category(models.Model):
     name = models.CharField(max_length=120)
@@ -22,6 +36,7 @@ class PointOfInterest(models.Model):
     position = gmodels.PointField()
     tags = TaggableManager()
     active = models.BooleanField(default=True)
+    creator = models.ForeignKey(Profile, null=True, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.name
@@ -47,3 +62,12 @@ class Page(models.Model):
 
     def __str__(self):
         return self.title
+
+@receiver(post_save, sender=USER_MODEL)
+def create_user_profile(sender, instance, created, **kwargs):
+    if created:
+        Profile.objects.create(user=instance)
+
+@receiver(post_save, sender=USER_MODEL)
+def save_user_profile(sender, instance, **kwargs):
+    instance.profile.save()
