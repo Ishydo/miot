@@ -1,0 +1,26 @@
+{% extends "layout/base.html" %}
+
+{% block content %}
+
+<div class="container">
+
+  <h1>{{poi.name}}</h1>
+
+  {% for p in poi.page_set.all %}
+
+  {{p.title}}
+
+  {% endfor %}
+
+  {% for t in poi.tags.all %}
+
+    {{t.name}}
+
+  {% endfor %}
+
+</div>
+
+
+
+
+{% endblock %}
