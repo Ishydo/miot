@@ -154,3 +154,6 @@ MAP_WIDGETS = {
 
 # Insensitive django-taggit
 TAGGIT_CASE_INSENSITIVE = True
+
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = '/media/'
