@@ -1,7 +1,7 @@
 from django.conf.urls import url, include
 from django.contrib import admin
 
-from miot.views import poi_views, profile_views, static_views
+from miot.views import page_views, poi_views, profile_views, static_views
 
 urlpatterns = [
     url(r'^places', poi_views.PointOfInterestListView.as_view(), name="poi_list"),
@@ -10,4 +10,6 @@ urlpatterns = [
     url(r'^$', static_views.HomepageView.as_view(), name="homepage"),
 
     url(r'^dashboard/new/pointofinterest', poi_views.PointOfInterestCreateView.as_view(), name="poi_create"),
+    url(r'^dashboard/new/page/(?P<slug>[-\w]+)', page_views.PageCreateView.as_view(), name="page_create"),
+
 ]
