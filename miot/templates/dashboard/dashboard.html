@@ -1,33 +1,230 @@
 
+{% extends "dashboard/base.html" %}
 
-{% if messages %}
-<ul class="messages">
-    {% for message in messages %}
-    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
-    {% endfor %}
-</ul>
-{% endif %}
+{% block content %}
+
+<style>
+
+.dashboard-top-card{color: #F8F8F8;}
+.dashboard-top-card h1{font-size: 3em; font-weight: bold; margin-bottom: 0;}
+.dashboard-top-card p{font-size: 1.2em;}
+.dashboard-top-row{border-bottom: 2px solid #ccc;}
+#map-canvas {
+  min-height: 400px;
+  width: 100%;
+}
 
 
-<h1>This is a creator dashboard</h1>
+</style>
 
-<p>What can he do ?</p>
+<div class="container-fluid d-flex">
 
-<ul>
-  <li><a href="{% url "poi_create" %}">New Point Of Interest</a></li>
-</ul>
+  <div class="col-2 pt-4 hidden-sm-down">
 
-<h2>PointsOfInterest</h2>
-{% for p in pois %}
+    <ul class="nav flex-column">
+      <li class="nav-item">
+        <a class="nav-link active" href="#">Dashboard</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">Point of Interests</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">Pages</a>
+      </li>
 
-<p>
-{{p.name}}  <a href="{% url "page_create" p.slug %}">Add page</a> <a href="{% url "poi_delete" p.slug %}">Delete</a>
-</p>
-{% endfor %}
+    </ul>
 
-<h2>Pages</h2>
-{% for page in pages %}
+  </div>
 
-<p>{{page.title}} <a href="{% url "page_delete" page.slug %}">Delete</a></p>
+  <div class="col-12 col-md-10 pt-4">
 
-{% endfor %}
+    {% if messages %}
+    <ul class="messages">
+      {% for message in messages %}
+      <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+      {% endfor %}
+    </ul>
+    {% endif %}
+
+
+    <div class="row dashboard-top-row pb-4">
+
+      <div class="col-12 dashboard-top-card col-sm-3">
+        <div class="container card p-0">
+          <div class="col-12 d-flex p-3 card-primary">
+            <div class="col-2">
+              <i class="fa fa-map-marker fa-5x" aria-hidden="true"></i>
+            </div>
+            <div class="col-10 d-flex flex-column align-items-end">
+              <h1>{{pois.count}}</h1>
+              <p>Points of Interest</p>
+            </div>
+          </div>
+          <div class="col-12 py-2">
+            <a href="{% url "poi_create" %}"><i class="fa fa-arrow-right" aria-hidden="true"></i>&nbsp;Manage Points of interest</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-12 dashboard-top-card col-sm-3">
+        <div class="container card p-0">
+          <div class="col-12 d-flex p-3 card-danger">
+            <div class="col-2">
+              <i class="fa fa-file-text-o fa-5x" aria-hidden="true"></i>
+            </div>
+            <div class="col-10 d-flex flex-column align-items-end">
+              <h1>{{pages.count}}</h1>
+              <p>Unique pages</p>
+            </div>
+          </div>
+          <div class="col-12 py-2">
+            <a href="{% url "poi_create" %}"><i class="fa fa-arrow-right" aria-hidden="true"></i>&nbsp;Manage Points of interest</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-12 dashboard-top-card col-sm-3">
+        <div class="container card p-0">
+          <div class="col-12 d-flex p-3 card-success">
+            <div class="col-2">
+              <i class="fa fa-dot-circle-o fa-5x" aria-hidden="true"></i>
+            </div>
+            <div class="col-10 d-flex flex-column align-items-end">
+              <h1>0</h1>
+              <p>Visits</p>
+            </div>
+          </div>
+          <div class="col-12 py-2">
+            <a href="{% url "poi_create" %}"><i class="fa fa-arrow-right" aria-hidden="true"></i>&nbsp;Manage Points of interest</a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="row my-3">
+
+      <div class="col-8">
+        <div class="card">
+          <div class="card-header">
+            Your Point of Interests Geographically
+          </div>
+          <div class="card-block p-0">
+            <div id="map-canvas" class="bordered"></div>
+          </div>
+        </div>
+
+      </div>
+      <div class="col-4">
+        <div class="card">
+          <div class="card-header">
+            Activity
+          </div>
+          <div class="card-block p-0">
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item">Cras justo odio</li>
+              <li class="list-group-item">Dapibus ac facilisis in</li>
+              <li class="list-group-item">Vestibulum at eros</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+
+    <div class="row">
+
+      <div class="col-4">
+        <div class="card">
+          <div class="card-header">
+            Last PointsOf Interests
+          </div>
+          <div class="card-block p-0">
+            <ul class="list-group list-group-flush">
+              {% for p in pois %}
+              <li class="list-group-item d-flex justify-content-between">
+                <a href="{% url "poi_detail" p.slug %}">{{p.name}}</a>
+                <div>
+                  <a href="{% url "page_create" p.slug %}">Add page</a>
+                  <a href="{% url "poi_delete" p.slug %}">Delete</a>
+                </div>
+              </li>
+              {% endfor %}
+            </ul>
+          </div>
+          <div class="card-footer">
+            <a href="{% url "poi_create" %}"><i class="fa fa-plus" aria-hidden="true"></i>&nbsp;Create New Points of interest</a>
+          </div>
+        </di>
+      </div>
+    </div>
+
+
+
+    <div class="col-4 col-xs-12">
+      <div class="card">
+        <div class="card-header">
+          Last Pages
+        </div>
+        <div class="card-block p-0">
+          <ul class="list-group list-group-flush">
+            {% for page in pages %}
+            <li class="list-group-item d-flex justify-content-between">
+              <div>
+                {{page.title}} <i class="text-muted">({{page.poi.name}})</i>
+              </div>
+              <div>
+                <a href="{% url "page_delete" page.slug %}">Delete</a>
+              </div>
+            </li>
+            {% empty %}
+            <li class="list-group-item d-flex flex-column">
+              <i class="fa fa-plus fa-5x" aria-hidden="true"></i>
+              <p>START CREATING</p>
+            </li>
+            {% endfor %}
+          </ul>
+        </div>
+        <div class="card-footer">
+          Create page with choose the poi
+        </div>
+      </di>
+    </div>
+  </div>
+</div>
+
+
+<script>
+function initMap() {
+  var switzerland = {lat: 46.818188, lng: 8.227511999999933};
+  var map = new google.maps.Map(document.getElementById('map-canvas'), {
+    zoom: 7,
+    center: switzerland
+  });
+
+  function addMarker(lat, lng, title, lab) {
+    var position = new google.maps.LatLng(lat, lng);
+    var marker = new google.maps.Marker({
+      position: position,
+      map: map,
+      clickable: true,
+      title: title,
+      label: lab
+    });
+  }
+
+  {% for poi in pois %}
+  addMarker({{ poi.position.get_y }}, {{ poi.position.get_x }}, "{{ poi.name }}", "{{ poi.name }}");
+  {% endfor %}
+
+
+}
+</script>
+<script async defer
+src="https://maps.googleapis.com/maps/api/js?key={{API_KEY}}&callback=initMap">
+</script>
+
+
+
+{% endblock %}
