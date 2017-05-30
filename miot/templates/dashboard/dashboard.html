@@ -1,4 +1,14 @@
 
+
+{% if messages %}
+<ul class="messages">
+    {% for message in messages %}
+    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+    {% endfor %}
+</ul>
+{% endif %}
+
+
 <h1>This is a creator dashboard</h1>
 
 <p>What can he do ?</p>
@@ -9,8 +19,16 @@
   <li>Update pages</li>
 </ul>
 
+<h2>PointsOfInterest</h2>
 {% for p in pois %}
 
 {{p.name}}
+
+{% endfor %}
+
+<h2>Pages</h2>
+{% for page in pages %}
+
+<p>{{page.title}}</p>
 
 {% endfor %}
