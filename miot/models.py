@@ -14,6 +14,9 @@ class Profile(models.Model):
     def fetchPointOfInterests(self):
         return PointOfInterest.objects.filter(creator=self)
 
+    def fetchPages(self):
+        return Page.objects.select_related().filter(poi__in=self.fetchPointOfInterests())
+
     def __str__(self):
         return self.user.username
 
