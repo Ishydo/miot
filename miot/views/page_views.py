@@ -1,4 +1,4 @@
-from django.views.generic import CreateView
+from django.views.generic import CreateView, DeleteView
 from miot.models import Page, PointOfInterest
 from miot.forms import PointOfInterestForm, PageForm
 
@@ -11,7 +11,12 @@ class PageCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
     success_url="/dashboard"
     success_message = "%(title)s was created successfully"
 
-
     def form_valid(self, form):
         form.instance.poi = PointOfInterest.objects.get(slug=self.kwargs["slug"])
         return super(PageCreateView, self).form_valid(form)
+
+class PageDeleteView(DeleteView):
+    model = Page
+    template_name = "dashboard/page_delete.html"
+    success_url = "/dashboard"
+    success_message = "%(name)s was deleted successfully"

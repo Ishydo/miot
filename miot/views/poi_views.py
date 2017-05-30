@@ -1,4 +1,4 @@
-from django.views.generic import ListView, DetailView, CreateView
+from django.views.generic import ListView, DetailView, CreateView, DeleteView
 from miot.models import PointOfInterest
 from miot.forms import PointOfInterestForm
 
@@ -18,4 +18,14 @@ class PointOfInterestCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateV
     form_class=PointOfInterestForm
     template_name = "dashboard/poi_form.html"
     success_url="/dashboard"
+    success_message = "%(name)s was created successfully"
+
+    def form_valid(self, form):
+        form.instance.creator = self.request.user.profile
+        return super(PointOfInterestCreateView, self).form_valid(form)
+
+class PointOfInterestDeleteView(DeleteView):
+    model = PointOfInterest
+    template_name = "dashboard/poi_delete.html"
+    success_url = "/dashboard"
     success_message = "%(name)s was created successfully"
