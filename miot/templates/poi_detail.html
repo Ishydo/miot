@@ -6,6 +6,11 @@
 
   <h1>{{poi.name}}</h1>
 
+  <h2>First page content</h2>
+
+  {{poi.page_set.first.content}}
+
+
   <h2>Pages</h2>
   {% for p in poi.page_set.all %}
 
