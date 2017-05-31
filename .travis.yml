@@ -10,8 +10,8 @@ env:
   - DJANGO_VERSION=1.11
 
 before_install:
-  - export DJANGO_SETTINGS_MODULE=miot.settings
-  - export PYTHONPATH=$HOME/builds/your_github_username/your_repo
+  - export DJANGO_SETTINGS_MODULE=miotProject.settings
+  - export PYTHONPATH=$HOME/builds/ishydo/miot
   - export PIP_USE_MIRRORS=true
 
 install:
