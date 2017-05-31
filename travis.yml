@@ -1,0 +1,24 @@
+
+language: python
+
+python:
+  - 3.5
+
+services: postgresql
+
+env:
+  - DJANGO_VERSION=1.11
+
+before_install:
+  - export DJANGO_SETTINGS_MODULE=miot.settings
+  - export PYTHONPATH=$HOME/builds/your_github_username/your_repo
+  - export PIP_USE_MIRRORS=true
+
+install:
+  - pip install -r requirements.txt
+
+before_script:
+  - psql -c "CREATE DATABASE miot;" -U postgres
+
+script:
+- python manage.py test
