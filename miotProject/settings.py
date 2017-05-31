@@ -97,8 +97,8 @@ WSGI_APPLICATION = 'miotProject.wsgi.application'
 if 'TRAVIS' in os.environ:
     DATABASES = {
         'default': {
-            'ENGINE':   'django.db.backends.postgresql_psycopg2',
-            'NAME':     'travisci',
+            'ENGINE':   'django.contrib.gis.db.backends.postgis',
+            'NAME':     'travis_ci_test',
             'USER':     'postgres',
             'PASSWORD': '',
             'HOST':     'localhost',

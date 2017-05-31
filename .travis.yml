@@ -6,6 +6,9 @@ python:
 
 services: postgresql
 
+addons:
+  postgresql: "9.3"
+
 env:
   - DJANGO_VERSION=1.11
 
@@ -16,6 +19,10 @@ before_install:
 
 install:
   - pip install -r requirements.txt
+
+before_script:
+  - psql -c 'CREATE DATABASE travis_ci_test;' -U postgres
+  - psql -U postgres -c "CREATE EXTENSION postgis"
 
 script:
 - python manage.py test
