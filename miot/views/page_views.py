@@ -1,4 +1,4 @@
-from django.views.generic import CreateView, DeleteView
+from django.views.generic import CreateView, DeleteView, UpdateView
 from miot.models import Page, PointOfInterest
 from miot.forms import PointOfInterestForm, PageForm
 
@@ -14,6 +14,11 @@ class PageCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
     def form_valid(self, form):
         form.instance.poi = PointOfInterest.objects.get(slug=self.kwargs["slug"])
         return super(PageCreateView, self).form_valid(form)
+
+class PageUpdateView(UpdateView):
+    model = Page
+    form_class=PageForm
+    template_name="dashboard/page_form.html"
 
 class PageDeleteView(DeleteView):
     model = Page
