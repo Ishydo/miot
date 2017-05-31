@@ -21,14 +21,16 @@
 
   <div class="col-12 pt-4">
 
-    {% if messages %}
-    <ul class="messages">
-      {% for message in messages %}
-      <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
-      {% endfor %}
-    </ul>
-    {% endif %}
-
+  {% if messages %}
+    {% for message in messages %}
+      <div class="alert alert-{% if message.tags %}{{ message.tags }}{% endif %} alert-dismissible fade show" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        {{ message }}
+      </div>
+    {% endfor %}
+  {% endif %}
 
     <div class="row dashboard-top-row pb-4">
 
@@ -159,6 +161,7 @@
               </div>
               <div>
                 <a href="{% url "page_delete" page.slug %}">Delete</a>
+                <a href="{% url "page_update" page.slug %}">Update</a>
               </div>
             </li>
             {% empty %}
