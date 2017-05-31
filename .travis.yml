@@ -23,6 +23,10 @@ install:
 before_script:
   - psql -c 'CREATE DATABASE travis_ci_test;' -U postgres
   - psql -U postgres -c "CREATE EXTENSION postgis"
+  - python manage.py migrate
+  - python manage.py makemigrations miot
+  - python manage.py migrate
+
 
 script:
 - python manage.py test
