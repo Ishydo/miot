@@ -1,0 +1,51 @@
+{
+  "name": "miot",
+  "version": "1.0.0",
+  "description": "Packages for miot django web platform",
+  "main": "webpack.config.js",
+  "dependencies": {
+    "babel": "^6.23.0",
+    "babel-core": "^6.24.1",
+    "babel-loader": "^7.0.0",
+    "babel-preset-latest": "^6.24.1",
+    "bootstrap": "^4.0.0-alpha.6",
+    "css-loader": "^0.28.4",
+    "extract-text-webpack-plugin": "^2.1.0",
+    "file-loader": "^0.11.1",
+    "font-awesome": "^4.7.0",
+    "google-maps-api": "^2.0.1",
+    "jquery": "^3.2.1",
+    "less": "^2.7.2",
+    "node-sass": "^4.5.3",
+    "react": "^15.5.4",
+    "sass-loader": "^6.0.5",
+    "style-loader": "^0.18.1",
+    "url-loader": "^0.5.8",
+    "webpack": "^2.6.1",
+    "webpack-bundle-tracker": "0.0.5"
+  },
+  "devDependencies": {
+    "babel": "^6.23.0",
+    "babel-loader": "^7.0.0",
+    "react": "^15.5.4",
+    "webpack": "^2.6.1",
+    "webpack-bundle-tracker": "0.0.5"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Ishydo/miot.git"
+  },
+  "keywords": [
+    "physical",
+    "web"
+  ],
+  "author": "Dominique Ducommun",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Ishydo/miot/issues"
+  },
+  "homepage": "https://github.com/Ishydo/miot#readme"
+}

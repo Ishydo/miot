@@ -91,5 +91,8 @@ ENV/
 # Rope project settings
 .ropeproject
 
+# Webpack
+node_modules
+bundles
 
-nodes_modules
+webpack-stats.json
