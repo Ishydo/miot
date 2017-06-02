@@ -1,8 +1,8 @@
-
-
 {% extends "dashboard/base.html" %}
 
 {% load add_css %}
+
+
 
 {% block content %}
 
@@ -15,7 +15,6 @@
 </style>
 
 <div class="col-8 mb-5">
-  {{form.media}}
 
 
   <div class="col-12 d-flex flex-column my-4">
@@ -28,7 +27,7 @@
 
     <form action="" method="post" enctype="multipart/form-data" novalidate="">
       {% csrf_token %}
-
+      {{form.media}}
       <div class="form-group row {% if form.name.errors %}has-danger{% endif %}">
         {{form.non_fields.errors}}
         <div class="col-9">
