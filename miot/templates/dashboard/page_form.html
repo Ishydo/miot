@@ -1,17 +1,46 @@
+{% extends "dashboard/base.html" %}
 
-{% extends "layout/base.html" %}
+{% load add_css %}
 
 {% block content %}
 
 
-<h1>Add new Point of Interest</h1>
+<div class="col-8">
 
-<p>You can add a new point of interest through this page.</p>
+  <h1>Add new Page</h1>
 
-<form action="" method="post" enctype="multipart/form-data">
-  {% csrf_token %}
-    {{ form.as_p }}
+  <p>You can add a new point of interest through this page.</p>
+
+  <form action="" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+
+    <div class="form-group {% if form.title.errors %}has-danger{% endif %}">
+      <label for="formGroupExampleInput">Title</label>
+      {{form.title|addclass:"form-control form-control-lg"}}
+      <div class="form-control-feedback">{% for e in form.title.errors %}{{e}}{% endfor %}</div>
+    </div>
+
+    <div class="form-group {% if form.content.errors %}has-danger{% endif %}">
+      <label for="formGroupExampleInput">Content</label>
+      {{form.content|addclass:"tinymce-editor"}}
+      <div class="form-control-feedback">{% for e in form.content.errors %}{{e}}{% endfor %}</div>
+    </div>
+
+    <div class="form-group {% if form.template.errors %}has-danger{% endif %}">
+      <label for="formGroupExampleInput">Template</label>
+      {{form.template|addclass:"form-control form-control-lg"}}
+      <div class="form-control-feedback">{% for e in form.template.errors %}{{e}}{% endfor %}</div>
+    </div>
+
+
+
+
+
+
+
     <input type="submit" value="Save" />
-</form>
+  </form>
+
+</div>
 
 {% endblock %}
