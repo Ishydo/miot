@@ -46,6 +46,19 @@ module.exports = {
           loader: ['css-loader', 'sass-loader']
         })
       },
+      {
+      test: require.resolve('tinymce/tinymce'),
+      loaders: [
+        'imports-loader?this=>window',
+        'exports-loader?window.tinymce'
+      ]
+    },
+    {
+      test: /tinymce\/(themes|plugins)\//,
+      loaders: [
+        'imports-loader?this=>window'
+      ]
+    }
     ],
   },
 }
