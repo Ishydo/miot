@@ -180,31 +180,91 @@
   </div>
 
 
+  <div id="markers" style="display:none;">
+[
+      {% for poi in pois %}
+        {
+          "name": "{{poi.name}}",
+          "slug": "{{poi.slug}}",
+          "position": {
+            "lat": "{{poi.position.get_y}}",
+            "lon": "{{poi.position.get_x}}"
+          }
+        }{% if not forloop.last %},{% endif %}
+      {% endfor %}
+]
+  </div>
 
-<script>
+
+
+<script type="text/javascript">
 function initMap() {
-  var switzerland = {lat: 46.818188, lng: 8.227511999999933};
+
+  var styledMapType = new google.maps.StyledMapType([
+  {
+    "featureType": "poi.business",
+    "stylers": [
+      {
+        "visibility": "off"
+      }
+    ]
+  },
+  {
+    "featureType": "road",
+    "elementType": "labels.icon",
+    "stylers": [
+      {
+        "visibility": "off"
+      }
+    ]
+  },
+  {
+    "featureType": "transit",
+    "stylers": [
+      {
+        "visibility": "off"
+      }
+    ]
+  }
+]);
+
+
+
   var map = new google.maps.Map(document.getElementById('map-canvas'), {
     zoom: 7,
-    center: switzerland
+    disableDefaultUI: true,
+    fullscreenControl: true,
+    zoomControl: true
+  });
+  var bounds = new google.maps.LatLngBounds();
+
+  var markers = $.parseJSON($("#markers").text())
+
+
+  $.each(markers, function(index, marker) {
+
+    var info = new google.maps.InfoWindow({
+      content: '<h6>' + marker.name + '</h6>',
+      maxWidth: 300
+    });
+
+    var pos = new google.maps.LatLng(marker.position.lat, marker.position.lon)
+    bounds.extend(pos);
+
+    var marker = new google.maps.Marker({
+       position: pos,
+       map: map,
+    });
+
+    marker.addListener('click', function(){
+      info.open(map, marker);
+    });
   });
 
-  function addMarker(lat, lng, title, lab) {
-    var position = new google.maps.LatLng(lat, lng);
-    var marker = new google.maps.Marker({
-      position: position,
-      map: map,
-      clickable: true,
-      title: title,
-      label: lab
-    });
-  }
-
-  {% for poi in pois %}
-  addMarker({{ poi.position.get_y }}, {{ poi.position.get_x }}, "{{ poi.name }}", "{{ poi.name }}");
-  {% endfor %}
-
-
+  //Associate the styled map with the MapTypeId and set it to display.
+  map.mapTypes.set('styled_map', styledMapType);
+  map.setMapTypeId('styled_map');
+  map.fitBounds(bounds);
 }
 </script>
 <script async defer
