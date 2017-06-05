@@ -30,17 +30,19 @@
           <a class="nav-link" data-toggle="collapse" href="#menuPOI" aria-expanded="false" aria-controls="menuPOI"><i class="fa fa-map-marker fa-fw" aria-hidden="true"></i>&nbsp;Point of Interests</a>
           <div class="collapse" id="menuPOI">
             <div class="card card-block border-0 pl-5">
-              <p><a href="{% url "poi_create" %}">Add Point of Interest</a></p>
-              <p><a href="{% url "poi_create" %}">Manage Points of Interest</a></p>
+              <p><a href="{% url "poi_create" %}"><i class="fa fa-plus fa-fw" aria-hidden="true"></i>&nbsp;Add Point of Interest</a></p>
+              <p><a href="{% url "poi_create" %}"><i class="fa fa-th-list fa-fw" aria-hidden="true"></i>&nbsp;Manage Points of Interest</a></p>
             </div>
           </div>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#"><i class="fa fa-file-text-o fa-fw" aria-hidden="true"></i>&nbsp;Pages</a>
-        </li>
-
-        <li class="nav-item">
-          <a class="nav-link" href="{% url "poi_select" %}"><i class="fa fa-file-text-o fa-fw" aria-hidden="true"></i>&nbsp;Add page</a>
+          <a class="nav-link" data-toggle="collapse" href="#menuPage" aria-expanded="false" aria-controls="menuPage"><i class="fa fa-file-text-o fa-fw" aria-hidden="true"></i>&nbsp;Pages</a>
+          <div class="collapse" id="menuPage">
+            <div class="card card-block border-0 pl-5">
+              <p><a href="{% url "poi_select" %}"><i class="fa fa-plus fa-fw" aria-hidden="true"></i>&nbsp;Add page</a></p>
+              <p><a href="{% url "poi_select" %}"><i class="fa fa-th-list fa-fw" aria-hidden="true"></i>&nbsp;Manage pages</a></p>
+            </div>
+          </div>
         </li>
       </ul>
     </div>
