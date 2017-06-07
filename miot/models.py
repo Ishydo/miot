@@ -47,6 +47,7 @@ class PointOfInterest(models.Model):
 
 class Template(models.Model):
     name = models.CharField(max_length=120)
+    slug = AutoSlugField(populate_from="name")
     created = models.DateTimeField(auto_now_add=True, editable=False)
     last_updated = models.DateTimeField(auto_now=True, editable=False)
     short_description = models.CharField(max_length=255)
@@ -78,6 +79,6 @@ def save_user_profile(sender, instance, **kwargs):
     instance.profile.save()
 
 @receiver(post_save, sender=PointOfInterest)
-def create_user_profile(sender, instance, created, **kwargs):
+def create_poi_page(sender, instance, created, **kwargs):
     if created:
         Page.objects.create(poi=instance, title="Homepage of {0}".format(instance.name), content="Your content here.", template=Template.objects.first())
