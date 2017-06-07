@@ -62,6 +62,7 @@ class Page(models.Model):
     poi = models.ForeignKey('PointOfInterest', on_delete=models.CASCADE)
     template = models.ForeignKey('Template', on_delete=models.CASCADE)
     slug = AutoSlugField(populate_from="title")
+    index = models.IntegerField(default=0)
 
     def __str__(self):
         return self.title
@@ -74,3 +75,8 @@ def create_user_profile(sender, instance, created, **kwargs):
 @receiver(post_save, sender=USER_MODEL)
 def save_user_profile(sender, instance, **kwargs):
     instance.profile.save()
+
+@receiver(post_save, sender=PointOfInterest)
+def create_user_profile(sender, instance, created, **kwargs):
+    if created:
+        Page.objects.create(poi=instance, title="Homepage of {0}".format(instance.name), content="Your content here.", template=Template.objects.first())
