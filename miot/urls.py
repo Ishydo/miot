@@ -12,7 +12,9 @@ urlpatterns = [
     url(r'^dashboard/delete/pointofinterest/(?P<slug>[-\w]+)', poi_views.PointOfInterestDeleteView.as_view(), name="poi_delete"),
     url(r'^dashboard/delete/page/(?P<slug>[-\w]+)', page_views.PageDeleteView.as_view(), name="page_delete"),
     url(r'^dashboard/edit/page/(?P<slug>[-\w]+)', page_views.PageUpdateView.as_view(), name="page_update"),
+    url(r'^dashboard/edit/pages/(?P<slug>[-\w]+)', page_views.PoiPageUpdateView.as_view(), name="poi_page_update"),
     url(r'^dashboard/edit/pointofinterest/(?P<slug>[-\w]+)', poi_views.PointOfInterestUpdateView.as_view(), name="poi_update"),
+    url(r'^dashboard/switch$', page_views.ChangeOrder.as_view(), name="switch_page_order"),
     url(r'^p/(?P<slug>[-\w]+)/', poi_views.PointOfInterestDetailView.as_view(), name="poi_detail"),
     url(r'^$', static_views.HomepageView.as_view(), name="homepage"),
 

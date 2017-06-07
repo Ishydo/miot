@@ -7,6 +7,11 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.messages.views import SuccessMessageMixin
 from django.contrib import messages
 
+class PointOfInterestDiscoverView(ListView):
+    model = PointOfInterest
+    template_name ="poi_list.html"
+
+
 class PointOfInterestListView(ListView):
     model = PointOfInterest
     template_name = "poi_list.html"
