@@ -15,6 +15,7 @@ urlpatterns = [
     url(r'^dashboard/edit/pages/(?P<slug>[-\w]+)', page_views.PoiPageUpdateView.as_view(), name="poi_page_update"),
     url(r'^dashboard/edit/pointofinterest/(?P<slug>[-\w]+)', poi_views.PointOfInterestUpdateView.as_view(), name="poi_update"),
     url(r'^dashboard/switch$', page_views.ChangeOrder.as_view(), name="switch_page_order"),
+    url(r'^p/(?P<slugPOI>[-\w]+)/(?P<slug>[-\w]+)', page_views.PageDetailView.as_view(), name="page_detail"),
     url(r'^p/(?P<slug>[-\w]+)/', poi_views.PointOfInterestDetailView.as_view(), name="poi_detail"),
     url(r'^$', static_views.HomepageView.as_view(), name="homepage"),
 

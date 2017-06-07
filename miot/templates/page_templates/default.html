@@ -1,2 +1,18 @@
+{% load render_bundle from webpack_loader %}
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>{% block title %}{% endblock %}</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-Default template for a page.
+  {% render_bundle 'main' %}
+
+</head>
+<body>
+
+  {% block content %}{% endblock %}
+
+</body>
+</html>

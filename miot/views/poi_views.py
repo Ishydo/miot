@@ -1,5 +1,5 @@
 from django.views.generic import ListView, DetailView, CreateView, DeleteView, UpdateView
-from miot.models import PointOfInterest
+from miot.models import PointOfInterest, Page
 from miot.forms import PointOfInterestForm
 from django.utils.safestring import mark_safe
 
@@ -20,6 +20,11 @@ class PointOfInterestDetailView(DetailView):
     model = PointOfInterest
     template_name = "poi_detail.html"
     context_object_name = "poi"
+
+    def get_context_data(self, **kwargs):
+        context = super(PointOfInterestDetailView, self).get_context_data(**kwargs) # get the default context data
+        context['ordered_pages'] = self.get_object().getOrderedPages()
+        return context
 
 class PointOfInterestCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
     form_class=PointOfInterestForm

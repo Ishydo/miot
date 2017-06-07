@@ -1,4 +1,4 @@
-from django.views.generic import CreateView, DeleteView, UpdateView, ListView, View
+from django.views.generic import CreateView, DeleteView, UpdateView, ListView, View, DetailView
 from miot.models import Page, PointOfInterest
 from miot.forms import PointOfInterestForm, PageForm
 from django.http import HttpResponse
@@ -8,6 +8,16 @@ from django.contrib.messages.views import SuccessMessageMixin
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.decorators.csrf import csrf_exempt
+
+class PageDetailView(DetailView):
+    model = Page
+    template_name = "page_detail.html"
+
+    def get_context_data(self, **kwargs):
+        context = super(PageDetailView, self).get_context_data(**kwargs)
+        context['ordered_pages'] = PointOfInterest.objects.get(slug=self.kwargs['slugPOI']).getOrderedPages()
+        return context
+
 
 class PoiPageUpdateView(LoginRequiredMixin, ListView):
     model = PointOfInterest

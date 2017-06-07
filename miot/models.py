@@ -42,6 +42,9 @@ class PointOfInterest(models.Model):
     creator = models.ForeignKey(Profile, null=True, on_delete=models.CASCADE)
     category = models.ForeignKey(Category, null=True, on_delete=models.SET_NULL)
 
+    def getOrderedPages(self):
+        return Page.objects.filter(poi=self).order_by("index")
+
     def __str__(self):
         return self.name
 
