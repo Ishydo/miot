@@ -1,14 +1,87 @@
 
 {% extends "layout/base.html" %}
 
+{% load static %}
+
 {% block title %}miot Homepage{% endblock %}
 
 {% block content %}
 
-<div class="container">
+<style>
 
-  <h1>miot</h1>
-  <p>Explanation of concept.</p>
+body{
+  font-size: 18px;
+}
+
+.cover{
+  height: 75vh;
+  background-size: cover;
+  background-position: 0 15%;
+}
+
+.cover h1{
+  color: #f8f8f8;
+  font-weight: 800;
+  font-size: 6em;
+  letter-spacing: -8px;
+}
+
+.cover p{
+  color: #f8f8f8;
+  font-size: 1.4em;
+}
+
+.cover strong{
+  background-color: white;
+  color: #222;
+  padding: 0px 5px 2px 5px;
+}
+
+.filter{
+  background-color: rgba(0,0,0,.5);
+  height: 100%;
+}
+
+</style>
+
+<div class="container-fluid cover p-0" style="background-image:url('{% static 'bg.jpg' %}');">
+  <div class="filter d-flex flex-column align-items-left justify-content-center">
+    <div class="container">
+      <div class="col-12">
+        <h1>miot</h1>
+        <p>A tool for <strong>you</strong> to create <strong>attractive content</strong> for the <strong>physical world</strong>.</p>
+
+        <a href="{% url "dashboard" %}" class="btn btn-info">Create content</a>
+        <a href="{% url "dashboard" %}" class="btn btn-info">Discover</a>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container mt-4">
+  <div class="container-fluid d-flex flex-column flex-md-row">
+    <div class="col-12 col-md-6">
+      <p class="text-muted">
+        <strong>miot</strong> is a tool for you to propose a unique experience for users,
+        visitors and curious people by defining places, events and points of interest and
+        attach attractive content to it.
+      </p>
+    </div>
+    <div class="col-12 col-md-6">
+      <p class="text-muted">
+        It takes two seconds to join by using one of your social accounts and you
+        are already ready to create your own points of interest by using your new
+        miot dashboard!
+      </p>
+    </div>
+  </div>
+</div>
+
+<div class="container mt-4">
+  <div class="col-12">
+  okokok
+  </div>
 </div>
 
 {% endblock %}
