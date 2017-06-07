@@ -5,7 +5,7 @@ from django import forms
 class PointOfInterestForm(forms.ModelForm):
     class Meta:
         model = PointOfInterest
-        fields = ("name", "featured_image", "position", "tags", "active")
+        fields = ("name", "featured_image", "position", "tags", "active", "category")
         widgets = {
             'position': GooglePointFieldWidget,
         }

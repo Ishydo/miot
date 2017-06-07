@@ -40,6 +40,7 @@ class PointOfInterest(models.Model):
     tags = TaggableManager()
     active = models.BooleanField(default=True)
     creator = models.ForeignKey(Profile, null=True, on_delete=models.CASCADE)
+    category = models.ForeignKey(Category, null=True, on_delete=models.SET_NULL)
 
     def __str__(self):
         return self.name

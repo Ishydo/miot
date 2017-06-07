@@ -32,6 +32,11 @@
           <div class="form-control-feedback">{% for e in form.featured_image.errors %}{{e}}{% endfor %}</div>
         </div>
       </div>
+      <div class="form-group">
+        <label for="formGroupExampleInput">Category</label>
+        {{form.category|addclass:"form-control"}}
+         <div class="form-control-feedback">{% for e in form.category.errors %}{{e}}{% endfor %}</div>
+      </div>
       <div class="form-group {% if form.position.errors %}has-danger{% endif %}">
         <label for="formGroupExampleInput">Position</label>
         {{form.position}}
