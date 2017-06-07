@@ -25,3 +25,6 @@ tinymce.init({
     });
 }
 });
+
+
+import 'sortablejs'
