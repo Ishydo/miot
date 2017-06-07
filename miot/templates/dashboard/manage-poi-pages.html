@@ -1,0 +1,66 @@
+{% extends "dashboard/base.html" %}
+
+
+{% block content %}
+
+<div class="container">
+  <h1>Edit pages of {{poi.name}}</h1>
+
+
+  <ul class="list-group" id="dashPageList">
+
+    {% csrf_token %}
+
+    {% for page in object_list %}
+
+    <li class="list-group-item justify-content-between" data-id="{{page.index}}">
+      <div>
+        <span class="my-handle"><i class="fa fa-bars fa-fw" aria-hidden="true"></i></span>
+        {{page.title}}
+      </div>
+      <span class="badge badge-default badge-pill">{{page.index}}</span>
+    </li>
+
+
+    {% endfor %}
+  </ul>
+</div>
+
+
+
+
+<script>
+console.log("ok");
+console.log(document.getElementById("dashPageList"));
+// List with handle
+Sortable.create(document.getElementById("dashPageList"), {
+  animation: 200,
+  handle: ".my-handle",
+  onEnd: function (/**Event*/evt) {
+    evt.oldIndex;  // element's old index within parent
+    evt.newIndex;  // element's new index within parent
+
+    $.ajax({
+      type:"POST",
+      url:"{% url "switch_page_order" %}",
+      data: {
+        'oldIndex': evt.oldIndex, // from form
+        'newIndex': evt.newIndex,
+        'poi': {{poi.pk}}
+      },
+      success: function(){
+        location.reload();
+      },
+      beforeSend: function(xhr, settings) {
+        xhr.setRequestHeader("X-CSRFToken", $("[name=csrfmiddlewaretoken]").val());
+      }
+    });
+  },
+});
+
+</script>
+
+
+
+
+{% endblock %}
