@@ -18,6 +18,12 @@ class PageDetailView(DetailView):
         context['ordered_pages'] = PointOfInterest.objects.get(slug=self.kwargs['slugPOI']).getOrderedPages()
         return context
 
+class PageManageListView(ListView):
+    model = Page
+    template_name = "dashboard/page_list.html"
+
+    def get_queryset(self):
+        return Page.objects.select_related().filter(poi__in=self.request.user.profile.fetchPointOfInterests())
 
 class PoiPageUpdateView(LoginRequiredMixin, ListView):
     model = PointOfInterest

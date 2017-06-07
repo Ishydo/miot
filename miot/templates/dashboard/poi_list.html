@@ -1,0 +1,14 @@
+{% extends "dashboard/base.html" %}
+
+
+{% block content %}
+
+  <h1>Your pages</h1>
+
+  {% for p in object_list %}
+
+    <p>{{p.name}}</p>
+
+  {% endfor %}
+
+{% endblock %}

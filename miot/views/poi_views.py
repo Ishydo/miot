@@ -1,5 +1,5 @@
 from django.views.generic import ListView, DetailView, CreateView, DeleteView, UpdateView
-from miot.models import PointOfInterest, Page
+from miot.models import PointOfInterest, Page, Profile
 from miot.forms import PointOfInterestForm
 from django.utils.safestring import mark_safe
 
@@ -15,6 +15,13 @@ class PointOfInterestDiscoverView(ListView):
 class PointOfInterestListView(ListView):
     model = PointOfInterest
     template_name = "poi_list.html"
+
+class PointOfInterestManageListView(ListView):
+    model = PointOfInterest
+    template_name = "dashboard/poi_list.html"
+
+    def get_queryset(self):
+        return self.request.user.profile.fetchPointOfInterests()
 
 class PointOfInterestDetailView(DetailView):
     model = PointOfInterest
