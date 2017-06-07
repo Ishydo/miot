@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/Ishydo/miot.svg?branch=development)](https://travis-ci.org/Ishydo/miot)
+
 # My Internet Of Things - miot
 
 A simple but complete Web platform for you to create IoT / Physical Web oriented content. Beacons can provide an
