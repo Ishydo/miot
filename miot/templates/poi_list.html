@@ -1,16 +1,38 @@
 {% extends "layout/base.html" %}
 
 {% block title %}
-
+Discover places
 {% endblock %}
 
 
 {% block content %}
 
-{% for p in object_list %}
 
-{{p.name}}
+<div class="container">
 
-{% endfor %}
+  <div class="col-12 col-md-6 mt-5">
+
+    <h1>Top featured places</h1>
+
+    <div class="list-group">
+      {% for p in object_list %}
+      <a href="{% url "poi_detail" p.slug %}" class="list-group-item list-group-item-action flex-column align-items-start">
+        <div class="d-flex w-100 justify-content-between">
+          <h5 class="mb-1">{{p.name}}</h5>
+          <small class="text-muted">by {{p.creator.user.username}}</small>
+        </div>
+        <small class="text-muted">
+          {% for tag in p.tags.all %}
+          {{tag.name}}
+          {% endfor %}
+        </small>
+      </a>
+      {% endfor %}
+    </div>
+  </div>
+
+</div>
+
+
 
 {% endblock %}

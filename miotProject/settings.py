@@ -188,6 +188,8 @@ ACCOUNT_USERNAME_REQUIRED = False
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
 
+CSRF_USE_SESSION = True
+
 SOCIALACCOUNT_PROVIDERS = \
     {'facebook':
        {'METHOD': 'oauth2',
