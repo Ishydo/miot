@@ -1,11 +1,4 @@
-import $ from 'jquery'
-
-import 'tether/dist/js/tether.min.js'
-import 'tether/dist/css/tether.min.css'
-
-import 'bootstrap'
-import 'bootstrap/dist/css/bootstrap.min.css'
-import './style.css'
+console.log("Loading dashboard JS.")
 
 import 'jquery-tags-input/dist/jquery.tagsinput.min.css'
 import 'jquery-tags-input/dist/jquery.tagsinput.min.js'
@@ -21,10 +14,11 @@ tinymce.init({
   skin: false,
   setup: function (editor) {
     editor.on('change', function () {
-        editor.save();
+      editor.save();
     });
-}
+  }
 });
 
-
 import 'sortablejs'
+
+import './dashboard.css'

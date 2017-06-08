@@ -1,0 +1,8 @@
+.dashboard-top-card{color: #F8F8F8;}
+.dashboard-top-card h1{font-size: 3em; font-weight: bold; margin-bottom: 0;}
+.dashboard-top-card p{font-size: 1.2em;}
+.dashboard-top-row{border-bottom: 2px solid #ccc;}
+#map-canvas {
+  min-height: 400px;
+  width: 100%;
+}

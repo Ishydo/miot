@@ -5,7 +5,12 @@ var ExtractTextPlugin = require('extract-text-webpack-plugin')
 
 module.exports = {
   context: __dirname,
-  entry: './assets/js/main', // entry point of our app. assets/js/index.js should require other js modules and dependencies it needs
+  entry: {
+    main: './assets/main',
+    frontend: './assets/frontend',
+    dashboard: './assets/dashboard',
+    dashboardmap: './assets/dashboard.map'
+  },
   output: {
     path: path.resolve('./static/bundles/'),
     filename: "[name]-[hash].js",
@@ -13,7 +18,7 @@ module.exports = {
   plugins: [
     new webpack.ProvidePlugin({$: "jquery", jQuery: "jquery","window.jQuery": "jquery", "Tether": 'tether',}),
     new BundleTracker({filename: './webpack-stats.json'}),
-    new ExtractTextPlugin('[name]-[contenthash].css'),
+    new ExtractTextPlugin('[name]-[contenthash].css')
   ],
   module: {
     loaders: [
