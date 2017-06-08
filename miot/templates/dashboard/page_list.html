@@ -3,12 +3,32 @@
 
 {% block content %}
 
-  <h1>Your pages</h1>
+  <div class="col-5 pt-4">
+    <h1>Your points of interest</h1>
+    <div class="card">
+      <div class="card-block p-0">
+        <ul class="list-group list-group-flush">
+          {% for p in object_list %}
+          <li class="list-group-item d-flex justify-content-between">
+            <div>
+              <a href="{% url "poi_detail" p.slug %}">{{p.title}}</a>
+              <span class="text-muted">({{p.poi.name}})</span>
+            </div>
+            <div class="btn-group" role="group">
+              <button id="btnGroupActionsPoi" type="button" class="btn btn-secondary btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Actions
+              </button>
+              <div class="dropdown-menu" aria-labelledby="btnGroupActionsPoi">
+                <a href="{% url "page_update" p.slug %}" class="dropdown-item">Update</a>
+                <a href="{% url "page_delete" p.slug %}" class="dropdown-item">Delete</a>
+              </div>
+            </div>
+          </li>
+          {% endfor %}
+        </ul>
+      </div>
+    </div>
+  </div>
 
-  {% for p in object_list %}
-
-    <p>{{p.title}}</p>
-
-  {% endfor %}
 
 {% endblock %}
