@@ -84,4 +84,4 @@ def save_user_profile(sender, instance, **kwargs):
 @receiver(post_save, sender=PointOfInterest)
 def create_poi_page(sender, instance, created, **kwargs):
     if created:
-        Page.objects.create(poi=instance, title="Homepage of {0}".format(instance.name), content="Your content here.", template=Template.objects.first())
+        Page.objects.create(poi=instance, title="Homepage", content="Your content here.", template=Template.objects.first())

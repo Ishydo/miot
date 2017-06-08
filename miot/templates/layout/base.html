@@ -9,10 +9,17 @@
 
   {% render_bundle 'main' %}
 
+  <!-- Styles for this particular page -->
+  {% block styles %}{% endblock %}
+
 </head>
 <body>
 
+  <!-- Page content, brace yourselves -->
   {% block content %}{% endblock %}
+
+  <!-- Specific scripts for this particular page -->
+  {% block scripts %}{% endblock %}
 
 </body>
 </html>

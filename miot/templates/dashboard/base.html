@@ -9,6 +9,9 @@
 
   {% render_bundle 'main' %}
 
+  <!-- Loading dashboard specific styles -->
+  {% render_bundle 'dashboard' 'css' %}
+
   <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 
 </head>
@@ -50,6 +53,11 @@
     <div class="container-fluid d-flex col-12 col-sm-10">
       {% block content %}{% endblock %}
     </div>
+
+  <!-- Loading dashboard specific scripts -->
+  {% render_bundle 'dashboard' 'js' %}
+
+  {% block scripts %}{% endblock %}
 
   </body>
   </html>
