@@ -1,7 +1,9 @@
 from django.shortcuts import render
 from django.views.generic import TemplateView
 from django.conf import settings
+from miot.models import PointOfInterest
 
 class HomepageView(TemplateView):
     def get(self, request):
-        return render(request, "static/homepage.html", {"API_KEY": settings.MAP_WIDGETS["GOOGLE_MAP_API_KEY"]})
+        context, context["pois"] = {}, PointOfInterest.objects.all()[:5]
+        return render(request, "static/homepage.html", context)

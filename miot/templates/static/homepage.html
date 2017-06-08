@@ -6,7 +6,7 @@
 {% block title %}miot Homepage{% endblock %}
 
 {% block styles %}
-  {% render_bundle 'frontend' 'css' %}
+{% render_bundle 'frontend' 'css' %}
 {% endblock %}
 
 {% block content %}
@@ -45,14 +45,47 @@
   </div>
 </div>
 
-<div class="container-fluid my-4 p-0">
+<div class="container my-5">
+
+    <div class="col-12 col-md-8">
+      <h1>Discover the best places defined by users on this platform!</h1>
+      <p>
+        These are some of the most visited points of interest defined on this platform.
+        But there are more! Do not wait to create your own or to discover new places. All you need
+        is a few minutes and beacons.
+      </p>
+    </div>
+    <div class="hidden-sm-down col-md-8 py-3">
+      <a href="{% url "poi_list" %}" class="btn btn-outline-info">Discover places</a>
+      <a href="{% url "dashboard" %}" class="btn btn-outline-danger">Create content</a>
+    </div>
+  </div>
+
+
+<div class="container-fluid mt-4 p-0">
   <div class="col-12 p-0">
     <div id="map-canvas"></div>
   </div>
 </div>
 
+<div id="markers" style="display:none;">
+  [
+  {% for poi in pois %}
+  {
+    "name": "{{poi.name}}",
+    "slug": "{{poi.slug}}",
+    "href": "{% url "poi_detail" poi.slug %}",
+    "position": {
+      "lat": "{{poi.position.get_y}}",
+      "lon": "{{poi.position.get_x}}"
+    }
+  }{% if not forloop.last %},{% endif %}
+  {% endfor %}
+  ]
+</div>
+
 {% endblock %}
 
 {% block scripts %}
-  {% render_bundle 'frontend' 'js' %}
+{% render_bundle 'frontend' 'js' %}
 {% endblock %}
