@@ -1,5 +1,9 @@
 {% extends "page_templates/"|add:ordered_pages.first.template.slug|add:".html" %}
 
+{% block title %}
+{{poi.name}}
+{% endblock %}
+
 {% block content %}
 
 <style>
@@ -28,7 +32,11 @@ body{
     <ul class="navbar-nav mr-auto">
       {% for p in ordered_pages %}
       <li class="nav-item active">
+        {% if forloop.first %}
+        <a class="nav-link" href="{% url "poi_detail" poi.slug %}">{{p.title}}<span class="sr-only">(current)</span></a>
+        {% else %}
         <a class="nav-link" href="{% url "page_detail" poi.slug p.slug %}">{{p.title}}<span class="sr-only">(current)</span></a>
+        {% endif %}
       </li>
       {% endfor %}
     </ul>
@@ -52,22 +60,14 @@ body{
 
   {{poi.page_set.first.content|safe}}
 
-
   {% for p in poi.page_set.all %}
   {{p.title}}
   {% endfor %}
-
-
 
   {% for t in poi.tags.all %}
   {{t.name}}
   {% endfor %}
 
-
-
 </div>
-
-
-
 
 {% endblock %}
