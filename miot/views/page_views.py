@@ -9,9 +9,12 @@ from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.decorators.csrf import csrf_exempt
 
-class PageDetailView(DetailView):
+from hitcount.views import HitCountDetailView
+
+class PageDetailView(HitCountDetailView):
     model = Page
     template_name = "page_detail.html"
+    count_hit = True
 
     def get_context_data(self, **kwargs):
         context = super(PageDetailView, self).get_context_data(**kwargs)

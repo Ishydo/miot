@@ -7,6 +7,8 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.messages.views import SuccessMessageMixin
 from django.contrib import messages
 
+from hitcount.views import HitCountDetailView
+
 class PointOfInterestDiscoverView(ListView):
     model = PointOfInterest
     template_name ="poi_list.html"
@@ -23,10 +25,11 @@ class PointOfInterestManageListView(ListView):
     def get_queryset(self):
         return self.request.user.profile.fetchPointOfInterests()
 
-class PointOfInterestDetailView(DetailView):
+class PointOfInterestDetailView(HitCountDetailView):
     model = PointOfInterest
     template_name = "poi_detail.html"
     context_object_name = "poi"
+    count_hit = True
 
     def get_context_data(self, **kwargs):
         context = super(PointOfInterestDetailView, self).get_context_data(**kwargs) # get the default context data

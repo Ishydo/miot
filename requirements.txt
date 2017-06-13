@@ -5,6 +5,7 @@ django-allauth==0.32.0
 django-extensions==1.7.9
 django-filebrowser==3.7.2
 django-grappelli==2.8.3
+django-hitcount==1.2.2
 django-map-widgets==0.1.8
 django-mptt==0.8.7
 django-taggit==0.22.1

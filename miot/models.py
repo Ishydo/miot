@@ -1,10 +1,13 @@
 from django.db import models
+from django.db.models import Sum
 from django.db.models.signals import post_save
 from django_extensions.db.fields import AutoSlugField
 from taggit.managers import TaggableManager
 from django.contrib.gis.db import models as gmodels
 from django.conf import settings
 from django.dispatch import receiver
+from hitcount.models import HitCountMixin
+from hitcount.models import HitCount
 
 USER_MODEL = getattr(settings, 'AUTH_USER_MODEL', 'auth.User')
 
@@ -13,6 +16,9 @@ class Profile(models.Model):
 
     def fetchPointOfInterests(self):
         return PointOfInterest.objects.filter(creator=self)
+
+    def fetchPointOfInterestsHits(self):
+        return HitCount.objects.select_related().filter(object_pk__in=self.fetchPointOfInterests()).aggregate(Sum("hits"))
 
     def fetchPages(self):
         return Page.objects.select_related().filter(poi__in=self.fetchPointOfInterests())
@@ -30,7 +36,7 @@ class Category(models.Model):
     def __str__(self):
         return self.name
 
-class PointOfInterest(models.Model):
+class PointOfInterest(models.Model, HitCountMixin):
     name = models.CharField(max_length=120)
     slug = AutoSlugField(populate_from='name')
     created = models.DateTimeField(auto_now_add=True, editable=False)
@@ -59,7 +65,7 @@ class Template(models.Model):
     def __str__(self):
         return self.name
 
-class Page(models.Model):
+class Page(models.Model, HitCountMixin):
     title = models.CharField(max_length=120)
     created = models.DateTimeField(auto_now_add=True, editable=False)
     last_updated = models.DateTimeField(auto_now=True, editable=False)
