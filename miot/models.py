@@ -8,6 +8,9 @@ from django.conf import settings
 from django.dispatch import receiver
 from hitcount.models import HitCountMixin
 from hitcount.models import HitCount
+from django.contrib.gis.geos import Point
+from django.contrib.gis.db.models.functions import Distance
+from django.contrib.gis.measure import D
 
 USER_MODEL = getattr(settings, 'AUTH_USER_MODEL', 'auth.User')
 
@@ -91,3 +94,12 @@ def save_user_profile(sender, instance, **kwargs):
 def create_poi_page(sender, instance, created, **kwargs):
     if created:
         Page.objects.create(poi=instance, title="Homepage", content="Your content here.", template=Template.objects.first())
+
+
+# utils
+def get_near_poi(lat, long):
+    location = Point(float(long), float(lat))
+    return PointOfInterest.objects \
+        .filter(position__distance_lte=(location, D(km=10))) \
+        .annotate(distance=Distance('position', location)) \
+        .order_by('distance')
