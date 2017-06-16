@@ -4,8 +4,9 @@ from django.contrib import admin
 from miot.views import page_views, poi_views, profile_views, static_views
 
 urlpatterns = [
-    url(r'^places$', poi_views.PointOfInterestListView.as_view(), name="poi_list"),
+    url(r'^places$', poi_views.PointOfInterestListViewPos.as_view(), name="poi_list"),
     url(r'^places/(\d+(?:\.\d+)?)/(\d+(?:\.\d+)?)$', poi_views.PointOfInterestListViewPos.as_view(), name="poi_list_pos"),
+    url(r'^places/(\d+(?:\.\d+)?)/(\d+(?:\.\d+)?)/(?P<query>[-\w]+)$', poi_views.PointOfInterestListViewPos.as_view(), name="search"),
 
     url(r'^dashboard/$', profile_views.Dashboard.as_view(), name="dashboard"),
     url(r'^dashboard/new/pointofinterest', poi_views.PointOfInterestCreateView.as_view(), name="poi_create"),
