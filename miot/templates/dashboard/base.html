@@ -18,7 +18,7 @@
 <body>
 
   <nav class="navbar navbar-light bg-faded">
-    <h1 class="navbar-brand mb-0">Navbar</h1>
+    <h1 class="navbar-brand mb-0">{{ user.username }}</h1>
   </nav>
 
   <div class="container-fluid d-flex">
@@ -46,6 +46,9 @@
               <p><a href="{% url "page_manage" %}"><i class="fa fa-th-list fa-fw" aria-hidden="true"></i>&nbsp;Manage pages</a></p>
             </div>
           </div>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url "profile_update" request.user.profile.pk %}"><i class="fa fa-file-text-o fa-user" aria-hidden="true"></i>&nbsp;Profile</a>
         </li>
       </ul>
     </div>

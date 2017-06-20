@@ -21,6 +21,23 @@
 
     <div class="col-12 dashboard-top-card col-sm-3">
       <div class="container card p-0">
+        <div class="col-12 d-flex p-3 card-warning">
+          <div class="col-2">
+            <i class="fa fa-podcast fa-5x" aria-hidden="true"></i>
+          </div>
+          <div class="col-10 d-flex flex-column align-items-end">
+            <h1>{{nbBeacons}}</h1>
+            <p>Registered beacons</p>
+          </div>
+        </div>
+        <div class="col-12 py-2">
+          <a href="{% url "poi_manage" %}"><i class="fa fa-arrow-right" aria-hidden="true"></i>&nbsp;Manage beacons</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-12 dashboard-top-card col-sm-3">
+      <div class="container card p-0">
         <div class="col-12 d-flex p-3 card-primary">
           <div class="col-2">
             <i class="fa fa-map-marker fa-5x" aria-hidden="true"></i>
@@ -88,13 +105,19 @@
     <div class="col-12 col-sm-4">
       <div class="card">
         <div class="card-header">
-          Activity
+          Beacons
         </div>
         <div class="card-block p-0">
           <ul class="list-group list-group-flush">
-            <li class="list-group-item">Cras justo odio</li>
-            <li class="list-group-item">Dapibus ac facilisis in</li>
-            <li class="list-group-item">Vestibulum at eros</li>
+
+          {% if beacons %}
+            {% for b in beacons %}
+              <li class="list-group-item"><i class="fa fa-podcast fa-fw"></i>&nbsp;<a href="{% url "beacon_update" b.identifier %}">{{b.identifier}}</a> - {{b.shadow.name}}</li>
+            {% endfor %}
+          {% else %}
+            <li>no be</li>
+          {% endif %}
+
           </ul>
         </div>
       </div>
