@@ -18,7 +18,7 @@ class PageDetailView(HitCountDetailView):
 
     def get_context_data(self, **kwargs):
         context = super(PageDetailView, self).get_context_data(**kwargs)
-        context['ordered_pages'] = PointOfInterest.objects.get(slug=self.kwargs['slugPOI']).getOrderedPages()
+        context['ordered_pages'] = PointOfInterest.objects.get(slug=self.kwargs['slugPOI']).get_ordered_pages()
         return context
 
 class PageManageListView(ListView):
@@ -26,7 +26,7 @@ class PageManageListView(ListView):
     template_name = "dashboard/page_list.html"
 
     def get_queryset(self):
-        return Page.objects.select_related().filter(poi__in=self.request.user.profile.fetchPointOfInterests())
+        return Page.objects.select_related().filter(poi__in=self.request.user.profile.fetch_points_of_interests())
 
 class PoiPageUpdateView(LoginRequiredMixin, ListView):
     model = PointOfInterest

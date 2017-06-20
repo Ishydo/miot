@@ -63,7 +63,7 @@ class PointOfInterestManageListView(ListView):
     template_name = "dashboard/poi_list.html"
 
     def get_queryset(self):
-        return self.request.user.profile.fetchPointOfInterests()
+        return self.request.user.profile.fetch_points_of_interests()
 
 class PointOfInterestDetailView(HitCountDetailView):
     model = PointOfInterest
@@ -73,7 +73,7 @@ class PointOfInterestDetailView(HitCountDetailView):
 
     def get_context_data(self, **kwargs):
         context = super(PointOfInterestDetailView, self).get_context_data(**kwargs) # get the default context data
-        context['ordered_pages'] = self.get_object().getOrderedPages()
+        context['ordered_pages'] = self.get_object().get_ordered_pages()
         return context
 
 class PointOfInterestCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):

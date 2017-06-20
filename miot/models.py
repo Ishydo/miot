@@ -19,14 +19,14 @@ class Profile(models.Model):
     estimote_app_id = models.CharField(max_length=120, blank=True, null=True)
     estimote_app_token = models.CharField(max_length=255, blank=True, null=True)
 
-    def fetchPointOfInterests(self):
+    def fetch_points_of_interests(self):
         return PointOfInterest.objects.filter(creator=self)
 
-    def fetchPointOfInterestsHits(self):
-        return HitCount.objects.select_related().filter(object_pk__in=self.fetchPointOfInterests()).aggregate(Sum("hits"))
+    def fetch_points_of_interests_hits(self):
+        return HitCount.objects.select_related().filter(object_pk__in=self.fetch_points_of_interests()).aggregate(Sum("hits"))
 
-    def fetchPages(self):
-        return Page.objects.select_related().filter(poi__in=self.fetchPointOfInterests())
+    def fetch_pages(self):
+        return Page.objects.select_related().filter(poi__in=self.fetch_points_of_interests())
 
     def __str__(self):
         return self.user.username
@@ -53,7 +53,7 @@ class PointOfInterest(models.Model, HitCountMixin):
     creator = models.ForeignKey(Profile, null=True, on_delete=models.CASCADE)
     category = models.ForeignKey(Category, null=True, on_delete=models.SET_NULL)
 
-    def getOrderedPages(self):
+    def get_ordered_pages(self):
         return Page.objects.filter(poi=self).order_by("index")
 
     def __str__(self):

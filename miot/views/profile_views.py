@@ -12,15 +12,15 @@ import json
 
 class Dashboard(LoginRequiredMixin, TemplateView):
     def get(self, request):
-        context, context["pois"] = {}, request.user.profile.fetchPointOfInterests()
-        context["pages"] = request.user.profile.fetchPages()
+        context, context["pois"] = {}, request.user.profile.fetch_points_of_interests()
+        context["pages"] = request.user.profile.fetch_pages()
         context["API_KEY"] = settings.MAP_WIDGETS["GOOGLE_MAP_API_KEY"]
-        hitsCounter = request.user.profile.fetchPointOfInterestsHits()
+        hitsCounter = request.user.profile.fetch_points_of_interests_hits()
         context["total_hits"] = 0 if hitsCounter is None else hitsCounter["hits__sum"]
 
         # Getting beacons
-        context["nbBeacons"] = getNbBeacons(request.user.profile)
-        context["beacons"] = None if context["nbBeacons"] <= 0 else getBeacons(request.user.profile)
+        context["nbBeacons"] = get_nb_beacon(request.user.profile)
+        context["beacons"] = None if context["nbBeacons"] <= 0 else get_beacons(request.user.profile)
         return render(request, "dashboard/dashboard.html", context)
 
 class ProfileUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
@@ -33,7 +33,7 @@ class ProfileUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
 class UpdateBeaconView(LoginRequiredMixin, TemplateView):
     def get(self, request, identifier):
         context, context["identifier"] = {}, identifier
-        beacon = getSingleBeacon(identifier, request.user.profile)
+        beacon = get_single_beacon(identifier, request.user.profile)
         context["beaconName"] = beacon["shadow"]["name"]
         context["beaconUrl"] = beacon["settings"]["advertisers"]["eddystone_url"][0]["url"]
         return render(request, "dashboard/beacon_edit.html", context=context)
@@ -60,16 +60,16 @@ class UpdateBeaconView(LoginRequiredMixin, TemplateView):
             return redirect("dashboard")
 
 
-def getNbBeacons(profile):
+def get_nb_beacon(profile):
     # Get the devices
     r = requests.get("https://cloud.estimote.com/v2/devices", auth=("{0}".format(profile.estimote_app_id), "{0}".format(profile.estimote_app_token)))
     beacons = json.loads(r.text)
     return len(beacons)
 
-def getSingleBeacon(identifier, profile):
+def get_single_beacon(identifier, profile):
     r = requests.get("https://cloud.estimote.com/v2/devices/{0}".format(identifier), auth=("{0}".format(profile.estimote_app_id), "{0}".format(profile.estimote_app_token)))
     return json.loads(r.text)
 
-def getBeacons(profile):
+def get_beacons(profile):
     r = requests.get("https://cloud.estimote.com/v2/devices", auth=("{0}".format(profile.estimote_app_id), "{0}".format(profile.estimote_app_token)))
     return json.loads(r.text)
