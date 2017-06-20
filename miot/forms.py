@@ -1,5 +1,5 @@
 from mapwidgets.widgets import GooglePointFieldWidget
-from miot.models import PointOfInterest, Page
+from miot.models import PointOfInterest, Page, Profile
 from django import forms
 
 class PointOfInterestForm(forms.ModelForm):
@@ -14,3 +14,8 @@ class PageForm(forms.ModelForm):
     class Meta:
         model = Page
         fields = ("title", "content", "template")
+
+class EstimoteAppForm(forms.ModelForm):
+    class Meta:
+        model = Profile
+        fields = ("estimote_app_id", "estimote_app_token")

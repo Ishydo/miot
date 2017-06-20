@@ -1,0 +1,22 @@
+{% extends "dashboard/base.html" %}
+
+{% block content %}
+
+<div class="container">
+
+  <form method="post" action="">
+    {% csrf_token %}
+    Name: <br/>
+    <input type="text" name="beacon_name" value="{{beaconName}}"><br/>
+    Broadcasted URL: <br/>
+    <input type="text" name="beacon_url" value="{{beaconUrl}}">
+
+    <input type="hidden" name="beacon_identifier" value="{{identifier}}">
+
+    <button type="submit" role="submit">Save</button>
+
+  </form>
+
+</div>
+
+{% endblock %}

@@ -16,6 +16,10 @@ urlpatterns = [
     url(r'^dashboard/delete/page/(?P<slug>[-\w]+)', page_views.PageDeleteView.as_view(), name="page_delete"),
     url(r'^dashboard/edit/page/(?P<slug>[-\w]+)', page_views.PageUpdateView.as_view(), name="page_update"),
     url(r'^dashboard/edit/pages/(?P<slug>[-\w]+)', page_views.PoiPageUpdateView.as_view(), name="poi_page_update"),
+
+    url(r'^dashboard/edit/beacon/(?P<identifier>[-\w]+)', profile_views.UpdateBeaconView.as_view(), name="beacon_update"),
+    url(r'^dashboard/edit/profile/(?P<pk>[-\w]+)', profile_views.ProfileUpdateView.as_view(), name="profile_update"),
+
     url(r'^dashboard/edit/pointofinterest/(?P<slug>[-\w]+)', poi_views.PointOfInterestUpdateView.as_view(), name="poi_update"),
     url(r'^dashboard/switch$', page_views.ChangeOrder.as_view(), name="switch_page_order"),
     url(r'^dashboard/manage/pages$', page_views.PageManageListView.as_view(), name="page_manage"),

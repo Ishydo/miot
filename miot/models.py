@@ -16,6 +16,8 @@ USER_MODEL = getattr(settings, 'AUTH_USER_MODEL', 'auth.User')
 
 class Profile(models.Model):
     user = models.OneToOneField(USER_MODEL, blank=True, null=True)
+    estimote_app_id = models.CharField(max_length=120, blank=True, null=True)
+    estimote_app_token = models.CharField(max_length=255, blank=True, null=True)
 
     def fetchPointOfInterests(self):
         return PointOfInterest.objects.filter(creator=self)
