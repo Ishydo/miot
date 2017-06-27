@@ -1,0 +1,79 @@
+{% extends "layout/base.html" %}
+
+
+{% load render_bundle from webpack_loader %}
+
+{% block title %}
+Discover places
+{% endblock %}
+
+
+{% block content %}
+
+
+<section class="jumbotron text-center mb-0 p-3">
+  <div class="container">
+    <form action=""  method="get">
+      <div class="form-group row">
+        <div class="col-8 mr-1 p-0">
+          <input type="text" class="form-control" id="lgFormGroupInput" name="q" placeholder="museum ">
+        </div>
+        <div class="col-2 ml-0 p-0">
+        <button type="submit" class="btn btn-primary">Search</button>
+      </div>
+    </div>
+    </form>
+  </div>
+</section>
+
+<div id="markers" style="display:none;">
+  [
+  {% for poi in pois %}
+  {
+    "name": "{{poi.name}}",
+    "slug": "{{poi.slug}}",
+    "href": "{% url "poi_detail" poi.slug %}",
+    "img": "{{poi.featured_image.url}}",
+    "position": {
+      "lat": "{{poi.position.get_y}}",
+      "lon": "{{poi.position.get_x}}"
+    }
+  }{% if not forloop.last %},{% endif %}
+  {% endfor %}
+  ]
+</div>
+
+
+<div class="container-fluid p-0">
+  <div id="map-canvas" style="min-width: 100%; min-height: 87vh;"></div>
+</div>
+
+<script>
+
+
+
+{% if not pois %}
+getLocation();
+{% endif %}
+
+
+function getLocation() {
+  console.log("LOCATE");
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(function(pos){
+      window.location = "/map?lat=" + pos.coords.latitude + "&lon=" + pos.coords.longitude + "{% for key, value in request.GET.items %}{% if key != 'page' %}&{{ key }}={{ value }}{% endif %}{% endfor %}";
+    });
+  } else {
+    alert("Please ! Let us use your gps");
+  }
+}
+
+
+</script>
+
+
+{% endblock %}
+
+{% block scripts %}
+{% render_bundle 'frontend' 'js' %}
+{% endblock %}
