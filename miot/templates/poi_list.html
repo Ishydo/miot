@@ -23,6 +23,50 @@ Discover places
   </div>
 </section>
 
+
+{% if search %}
+
+<div class="container">
+  <div class="row">
+    {% for p in object_list %}
+    <div class="col-12 col-md-4 mb-3">
+      <div class="card">
+        <div class="card-block p-0" style="background-image:url('{{p.featured_image.url}}'); background-size: cover;">
+          <div class="card-filter" style="background: rgba(0,0,0,.4); color: #f8f8f8;">
+            <div class="p-4">
+              <h3 class="card-title">{{p.name}}</h3>
+              <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+              <a href="{% url "poi_detail" p.slug %}" class="btn btn-primary">Show</a>
+            </div>
+          </div>
+        </div>
+        <div class="card-footer text-muted">
+          {{p.category.name}}
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+
+{% if is_paginated %}
+        <div class="pagination">
+            <span class="page-links">
+                {% if page_obj.has_previous %}
+                    <a href="?page={{ page_obj.previous_page_number }}{% for key, value in request.GET.items %}{% if key != 'page' %}&{{ key }}={{ value }}{% endif %}{% endfor %}"">previous</a>
+                {% endif %}
+                <span class="page-current">
+                    Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+                </span>
+                {% if page_obj.has_next %}
+                    <a href="?page={{ page_obj.next_page_number }}{% for key, value in request.GET.items %}{% if key != 'page' %}&{{ key }}={{ value }}{% endif %}{% endfor %}"">next</a>
+                {% endif %}
+            </span>
+        </div>
+    {% endif %}
+
+{% else %}
+
 <div class="container">
   <div class="row">
 
@@ -56,12 +100,33 @@ Discover places
   </div>
   <div class="row">
 
-  <div class="card col-12 py-3">
-    <div class="card-block d-flex flex-column align-items-center">
-      <i class="fa fa-map-marker text-muted" style="font-size: 5em;"></i>
-      <p class="mt-3"><strong>Please share your location to see places near you.</strong></p>
+
+    {% if nearPois %}
+    {% for p in nearPois|slice:":8" %}
+    <div class="col-12 col-md-3 mb-3">
+      <div class="card">
+        <div class="card-block p-0" style="background-image:url('{{p.featured_image.url}}'); background-size: cover;">
+          <div class="card-filter" style="background: rgba(0,0,0,.4); color: #f8f8f8;">
+            <div class="p-4">
+              <h4 class="card-title">{{p.name|truncatechars:15}}</h4>
+              <a href="{% url "poi_detail" p.slug %}" class="btn btn-primary">Show</a>
+            </div>
+          </div>
+        </div>
+        <div class="card-footer text-muted">
+          {{p.category.name}} - {{ p.distance }}
+        </div>
+      </div>
     </div>
-  </div>
+    {% endfor %}
+    {% else %}
+    <div class="card col-12 py-3">
+      <div class="card-block d-flex flex-column align-items-center">
+        <i class="fa fa-map-marker text-muted" style="font-size: 5em;"></i>
+        <p class="mt-3"><strong>Please share your location to see places near you.</strong></p>
+      </div>
+    </div>
+    {% endif %}
 
   </div>
 </div>
@@ -102,20 +167,23 @@ Discover places
   </div>
 </div>
 
+{% endif %}
+
 
 <script>
-
-
-
     // We ask the position
+    {% if not nearPois %}
     getLocation();
+    {% endif %}
 
 
     function getLocation() {
       console.log("LOCATE");
         if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(function(pos){
-                window.location = "/places/" + pos.coords.latitude + "/" + pos.coords.longitude;
+          console.log("geoloc");
+          navigator.geolocation.getCurrentPosition(function(pos){
+              console.log("ghello")
+              window.location = "/places?lat=" + pos.coords.latitude + "&lon=" + pos.coords.longitude + "{% for key, value in request.GET.items %}{% if key != 'page' %}&{{ key }}={{ value }}{% endif %}{% endfor %}";
             });
         } else {
             alert("Please ! Let us use your gps");
