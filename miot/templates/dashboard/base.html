@@ -21,46 +21,52 @@
     <h1 class="navbar-brand mb-0">{{ user.username }}</h1>
   </nav>
 
-  <div class="container-fluid d-flex">
 
-    <div class="col-2 pt-4 hidden-sm-down">
+  <div class="row-fluid mb-3">
+    <div class="container-fluid d-flex">
 
-      <ul class="nav flex-column">
-        <li class="nav-item">
-          <a class="nav-link active" href="{% url "dashboard" %}"><i class="fa fa-tachometer fa-fw" aria-hidden="true"></i>&nbsp;Dashboard</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" data-toggle="collapse" href="#menuPOI" aria-expanded="false" aria-controls="menuPOI"><i class="fa fa-map-marker fa-fw" aria-hidden="true"></i>&nbsp;Point of Interests</a>
-          <div class="collapse" id="menuPOI">
-            <div class="card card-block border-0 pl-5">
-              <p><a href="{% url "poi_create" %}"><i class="fa fa-plus fa-fw" aria-hidden="true"></i>&nbsp;Add Point of Interest</a></p>
-              <p><a href="{% url "poi_manage" %}"><i class="fa fa-th-list fa-fw" aria-hidden="true"></i>&nbsp;Manage Points of Interest</a></p>
+      <div class="col-2 pt-4 hidden-sm-down">
+
+        <ul class="nav flex-column">
+          <li class="nav-item">
+            <a class="nav-link active" href="{% url "dashboard" %}"><i class="fa fa-tachometer fa-fw" aria-hidden="true"></i>&nbsp;Dashboard</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" data-toggle="collapse" href="#menuPOI" aria-expanded="false" aria-controls="menuPOI"><i class="fa fa-map-marker fa-fw" aria-hidden="true"></i>&nbsp;Point of Interests</a>
+            <div class="collapse" id="menuPOI">
+              <div class="card card-block border-0 pl-5">
+                <p><a href="{% url "poi_create" %}"><i class="fa fa-plus fa-fw" aria-hidden="true"></i>&nbsp;Add Point of Interest</a></p>
+                <p><a href="{% url "poi_manage" %}"><i class="fa fa-th-list fa-fw" aria-hidden="true"></i>&nbsp;Manage Points of Interest</a></p>
+              </div>
             </div>
-          </div>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" data-toggle="collapse" href="#menuPage" aria-expanded="false" aria-controls="menuPage"><i class="fa fa-file-text-o fa-fw" aria-hidden="true"></i>&nbsp;Pages</a>
-          <div class="collapse" id="menuPage">
-            <div class="card card-block border-0 pl-5">
-              <p><a href="{% url "poi_select" %}"><i class="fa fa-plus fa-fw" aria-hidden="true"></i>&nbsp;Add page</a></p>
-              <p><a href="{% url "page_manage" %}"><i class="fa fa-th-list fa-fw" aria-hidden="true"></i>&nbsp;Manage pages</a></p>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" data-toggle="collapse" href="#menuPage" aria-expanded="false" aria-controls="menuPage"><i class="fa fa-file-text-o fa-fw" aria-hidden="true"></i>&nbsp;Pages</a>
+            <div class="collapse" id="menuPage">
+              <div class="card card-block border-0 pl-5">
+                <p><a href="{% url "poi_select" %}"><i class="fa fa-plus fa-fw" aria-hidden="true"></i>&nbsp;Add page</a></p>
+                <p><a href="{% url "page_manage" %}"><i class="fa fa-th-list fa-fw" aria-hidden="true"></i>&nbsp;Manage pages</a></p>
+              </div>
             </div>
-          </div>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="{% url "profile_update" request.user.profile.pk %}"><i class="fa fa-user fa-fw" aria-hidden="true"></i>&nbsp;Profile</a>
-        </li>
-      </ul>
-    </div>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url "profile_update" request.user.profile.pk %}"><i class="fa fa-user fa-fw" aria-hidden="true"></i>&nbsp;Profile</a>
+          </li>
+        </ul>
+      </div>
 
-    <div class="container-fluid d-flex col-12 col-sm-10">
-      {% block content %}{% endblock %}
+
+      <div class="container-fluid d-flex col-12 col-sm-10">
+        {% block content %}{% endblock %}
+      </div>
     </div>
+  </div>
+
 
   <!-- Loading dashboard specific scripts -->
   {% render_bundle 'dashboard' 'js' %}
 
   {% block scripts %}{% endblock %}
 
-  </body>
-  </html>
+</body>
+</html>
