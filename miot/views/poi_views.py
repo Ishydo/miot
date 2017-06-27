@@ -15,24 +15,38 @@ from hitcount.models import HitCount
 
 from functools import reduce
 
-class PointOfInterestDiscoverView(ListView):
-    model = PointOfInterest
-    template_name ="poi_list.html"
 
-class PointOfInterestListView(ListView):
+class PointOfInterestListViewMap(ListView):
+    template_name="poi_list_map.html"
     model = PointOfInterest
-    template_name = "poi_list.html"
+
+    def get_queryset(self):
+        result = super(PointOfInterestListViewMap, self).get_queryset()
+        if self.request.GET.get("q") is not None and self.request.GET.get("q") != "":
+            query = self.request.GET.get("q")
+            query_list = query.split()
+            result = PointOfInterest.objects.filter(
+                       reduce(lambda x, y: x | y, [Q(name__icontains=word) for word in query_list]) |
+                       (Q(tags__name__in=query_list))
+                       ).distinct()
+            return result
+        else:
+            return PointOfInterest.objects.filter(active=True)
 
     def get_context_data(self, **kwargs):
-        context = super(PointOfInterestListView, self).get_context_data(**kwargs)
-        context['bestPois'] = sorted(PointOfInterest.objects.filter(active=True)[:3], key=lambda p: p.hit_count.hits, reverse=True)
-        print(context["bestPois"])
-        context['object_list'] = PointOfInterest.objects.filter(active=True)
+        context = super(PointOfInterestListViewMap, self).get_context_data(**kwargs) # get the default context data
+        context["bestPois"] = sorted(PointOfInterest.objects.filter(active=True)[:3], key=lambda p: p.hit_count.hits, reverse=True)
+        print("OH")
+        if self.request.GET.get("lat") is not None:
+            context["pois"] = get_near_poi(self.request.GET.get("lat"), self.request.GET.get("lon"))
+        if self.request.GET.get("q") is not None:
+            context["search"] = True
         return context
+
 
 class PointOfInterestListViewPos(ListView):
     paginate_by = 4
-    template_name="poi_list_pos.html"
+    template_name="poi_list.html"
     model = PointOfInterest
 
     def get_queryset(self):
