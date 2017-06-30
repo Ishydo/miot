@@ -25,6 +25,7 @@ urlpatterns = [
     url(r'^dashboard/switch$', page_views.ChangeOrder.as_view(), name="switch_page_order"),
     url(r'^dashboard/manage/pages$', page_views.PageManageListView.as_view(), name="page_manage"),
     url(r'^dashboard/manage/pointofinterests$', poi_views.PointOfInterestManageListView.as_view(), name="poi_manage"),
+    url(r'^dashboard/manage/beacons$', profile_views.ManageBeaconsView.as_view(), name="beacon_manage"),
 
     url(r'^p/(?P<slugPOI>[-\w]+)/(?P<slug>[-\w]+)', page_views.PageDetailView.as_view(), name="page_detail"),
     url(r'^p/(?P<slug>[-\w]+)/', poi_views.PointOfInterestDetailView.as_view(), name="poi_detail"),

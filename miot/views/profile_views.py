@@ -32,7 +32,16 @@ class ProfileUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     form_class=EstimoteAppForm
     template_name="dashboard/profile_form.html"
     success_url="/dashboard"
-    success_message = "%(name)s was updated successfully"
+    success_message = "Profile updated successfully"
+
+class ManageBeaconsView(TemplateView):
+    def get(self, request):
+        context = {}
+        if request.user.profile.estimote_app_id is not None and request.user.profile.estimote_app_token is not None:
+            context["beacons"] = get_beacons(request.user.profile)
+        else:
+            context["beaconsToConfigure"] = True
+        return render(request, "dashboard/beacon_list.html", context)
 
 class UpdateBeaconView(LoginRequiredMixin, TemplateView):
     def get(self, request, identifier):
