@@ -1,7 +1,7 @@
 
 from django.views.generic import TemplateView, UpdateView
 from django.shortcuts import render, redirect
-from miot.models import PointOfInterest, Profile
+from miot.models import PointOfInterest, Profile, Page
 from miot.forms import EstimoteAppForm
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.messages.views import SuccessMessageMixin
@@ -33,6 +33,12 @@ class ProfileUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     template_name="dashboard/profile_form.html"
     success_url="/dashboard"
     success_message = "Profile updated successfully"
+
+class StatisticsView(TemplateView):
+    def get(self, request):
+        context = {}
+        context["visits"] = Page.objects.filter(poi__creator=request.user.profile)
+        return render(request, "dashboard/statistics.html", context)
 
 class ManageBeaconsView(TemplateView):
     def get(self, request):

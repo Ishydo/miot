@@ -27,6 +27,8 @@ urlpatterns = [
     url(r'^dashboard/manage/pointofinterests$', poi_views.PointOfInterestManageListView.as_view(), name="poi_manage"),
     url(r'^dashboard/manage/beacons$', profile_views.ManageBeaconsView.as_view(), name="beacon_manage"),
 
+    url(r'^dashboard/statistics$', profile_views.StatisticsView.as_view(), name="statistics"),
+
     url(r'^p/(?P<slugPOI>[-\w]+)/(?P<slug>[-\w]+)', page_views.PageDetailView.as_view(), name="page_detail"),
     url(r'^p/(?P<slug>[-\w]+)/', poi_views.PointOfInterestDetailView.as_view(), name="poi_detail"),
     url(r'^$', static_views.HomepageView.as_view(), name="homepage"),
