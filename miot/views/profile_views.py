@@ -18,9 +18,13 @@ class Dashboard(LoginRequiredMixin, TemplateView):
         hitsCounter = request.user.profile.fetch_points_of_interests_hits()
         context["total_hits"] = 0 if hitsCounter is None else hitsCounter["hits__sum"]
 
-        # Getting beacons
-        context["nbBeacons"] = get_nb_beacon(request.user.profile)
-        context["beacons"] = None if context["nbBeacons"] <= 0 else get_beacons(request.user.profile)
+        # Getting beacons if app configured
+        if request.user.profile.estimote_app_id is not None and request.user.profile.estimote_app_token is not None:
+            context["nbBeacons"] = get_nb_beacon(request.user.profile)
+            print(context["nbBeacons"])
+            context["beacons"] = None if context["nbBeacons"] <= 0 else get_beacons(request.user.profile)
+        else:
+            context["beaconsToConfigure"] = True
         return render(request, "dashboard/dashboard.html", context)
 
 class ProfileUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):

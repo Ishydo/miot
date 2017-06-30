@@ -23,12 +23,12 @@
 
     <div class="col-12 dashboard-top-card col-sm-3">
       <div class="container card p-0">
-        <div class="col-12 d-flex p-3 card-warning">
+        <div class="col-12 d-flex p-3 card-warning" id="card-beacon">
           <div class="col-2">
             <i class="fa fa-podcast fa-5x" aria-hidden="true"></i>
           </div>
           <div class="col-10 d-flex flex-column align-items-end">
-            <h1>{{nbBeacons}}</h1>
+            <h1>{% if beaconsToConfigure %}0{% else %}{{nbBeacons}}{% endif %}</h1>
             <p>Registered beacons</p>
           </div>
         </div>
@@ -40,7 +40,7 @@
 
     <div class="col-12 dashboard-top-card col-sm-3">
       <div class="container card p-0">
-        <div class="col-12 d-flex p-3 card-primary">
+        <div class="col-12 d-flex p-3 card-primary" id="card-poi">
           <div class="col-2">
             <i class="fa fa-map-marker fa-5x" aria-hidden="true"></i>
           </div>
@@ -112,13 +112,29 @@
         <div class="card-block p-0">
           <ul class="list-group list-group-flush">
 
-          {% if beacons %}
+
             {% for b in beacons %}
-              <li class="list-group-item"><i class="fa fa-podcast fa-fw"></i>&nbsp;<a href="{% url "beacon_update" b.identifier %}">{{b.identifier}}</a> - {{b.shadow.name}}</li>
+            <li class="list-group-item"><i class="fa fa-podcast fa-fw"></i>&nbsp;<a href="{% url "beacon_update" b.identifier %}">{{b.identifier}}</a> - {{b.shadow.name}}</li>
+
+            {% empty %}
+
+            {% if beaconsToConfigure %}
+            <li class="list-group-item">
+              <img src="https://insideoutdoor.com/wp-content/uploads/2016/02/beacon-example31.png">
+              <h5><strong>Estimote app not configured</strong></h5>
+              <p class="text-muted">In order to use this feature, please configure an estimote app in your profile options.</p>
+              <p>
+                <a href="#" class="btn btn-info">How to do it</a>
+                <a href="{% url "profile_update" request.user.profile.pk %}" class="btn btn-success">Configure app in profile</a>
+              </p>
+            </li>
+            {% else %}
+            <li class="list-group-item">
+              <p><strong>No beacons detected through API.</strong></p>
+            </li>
+            {% endif %}
+
             {% endfor %}
-          {% else %}
-            <li>no be</li>
-          {% endif %}
 
           </ul>
         </div>
@@ -203,6 +219,7 @@
 </div>
 
 
+
 <div id="markers" style="display:none;">
   [
   {% for poi in pois %}
@@ -219,8 +236,8 @@
 </div>
 {% endblock %}
 
-
 {% block scripts %}
 <!-- Loading dashboardmap specific scripts -->
 {% render_bundle 'dashboardmap' 'js' %}
+
 {% endblock %}
