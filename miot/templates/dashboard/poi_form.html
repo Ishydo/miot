@@ -44,7 +44,7 @@
       </div>
       <div class="form-group {% if form.tags.errors %}has-danger{% endif %}">
         <label for="formGroupExampleInput">Tags</label>
-        {{form.tags|addclass:"form-control tags-input"}}
+        {{form.tags|addclass:"form-control"}}
         <div class="form-control-feedback">{% for e in form.tags.errors %}{{e}}{% endfor %}</div>
       </div>
       <div class="form-check">
@@ -59,8 +59,8 @@
 
   </div>
 </div>
-{% endblock %}
 
+{% endblock %}
 
 {% block scripts %}
 
