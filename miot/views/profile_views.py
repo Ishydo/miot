@@ -16,12 +16,11 @@ class Dashboard(LoginRequiredMixin, TemplateView):
         context["pages"] = request.user.profile.fetch_pages()
         context["API_KEY"] = settings.MAP_WIDGETS["GOOGLE_MAP_API_KEY"]
         hitsCounter = request.user.profile.fetch_points_of_interests_hits()
-        context["total_hits"] = 0 if hitsCounter is None else hitsCounter["hits__sum"]
+        context["total_hits"] = 0 if hitsCounter["hits__sum"] is None else hitsCounter["hits__sum"]
 
         # Getting beacons if app configured
         if request.user.profile.estimote_app_id is not None and request.user.profile.estimote_app_token is not None:
             context["nbBeacons"] = get_nb_beacon(request.user.profile)
-            print(context["nbBeacons"])
             context["beacons"] = None if context["nbBeacons"] <= 0 else get_beacons(request.user.profile)
         else:
             context["beaconsToConfigure"] = True
@@ -83,7 +82,7 @@ def get_nb_beacon(profile):
     # Get the devices
     r = requests.get("https://cloud.estimote.com/v2/devices", auth=("{0}".format(profile.estimote_app_id), "{0}".format(profile.estimote_app_token)))
     beacons = json.loads(r.text)
-    return len(beacons)
+    return len(beacons) if beacons is not None else 0
 
 def get_single_beacon(identifier, profile):
     r = requests.get("https://cloud.estimote.com/v2/devices/{0}".format(identifier), auth=("{0}".format(profile.estimote_app_id), "{0}".format(profile.estimote_app_token)))
