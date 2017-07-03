@@ -49,8 +49,6 @@ body{
   <div class="filter">
     <div class="container pb-3 pt-4">
       <h1>{{poi.name}}</h1>
-      <p>Visits : {{ hitcount.total_hits }} {{ hitcount.hit_counted }}
-</p>
       <p>{{poi.category.name}}</p>
     </div>
   </div>
@@ -58,16 +56,39 @@ body{
 </div>
 
 
-<div class="container">
+<div class="container mt-4 pb-4">
 
   {{poi.page_set.first.content|safe}}
 
-  {% for p in poi.page_set.all %}
-  {{p.title}}
-  {% endfor %}
+  <hr class="mx-3"/>
+
+  <p class="text-muted"><i class="fa fa-eye fa-fw"></i>&nbsp;Visits : {{ hitcount.total_hits }}</p>
 
   {% for t in poi.tags.all %}
-  {{t.name}}
+  <span class="badge badge-default p-2 m-1">{{t.name}}</span>
+  {% endfor %}
+
+
+  <hr class="mx-3"/>
+
+  <h4>Similar points of interest</h4>
+  {% for s in poi.tags.similar_objects %}
+  <div class="col-12 col-md-4 pl-0 ml-0">
+    <div class="card">
+      <div class="card-block p-0" style="background-image:url('{{s.featured_image.url}}'); background-size: cover;">
+        <div class="card-filter" style="background: rgba(0,0,0,.4); color: #f8f8f8;">
+          <div class="p-4">
+            <a href="{% url "poi_detail" s.slug %}" style="color: #f8f8f8;"><h4 class="card-title">{{s.name|truncatechars:15}}</h4></a>
+          </div>
+        </div>
+      </div>
+      <div class="card-footer text-muted">
+        <span class="badge badge-default p-2">
+          {{s.similar_tags}} similar tags
+        </span>
+      </div>
+    </div>
+  </div>
   {% endfor %}
 
 </div>
