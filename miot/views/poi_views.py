@@ -66,6 +66,7 @@ class PointOfInterestListViewPos(ListView):
     def get_context_data(self, **kwargs):
         context = super(PointOfInterestListViewPos, self).get_context_data(**kwargs) # get the default context data
         context["bestPois"] = sorted(PointOfInterest.objects.filter(active=True)[:3], key=lambda p: p.hit_count.hits, reverse=True)
+        context["topTags"] = PointOfInterest.tags.most_common()[:10]
         if self.request.GET.get("lat") is not None:
             context["nearPois"] = get_near_poi(self.request.GET.get("lat"), self.request.GET.get("lon"))
         if self.request.GET.get("q") is not None:

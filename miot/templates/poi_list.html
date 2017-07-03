@@ -20,6 +20,7 @@ Discover places
         <button type="submit" class="btn btn-primary btn-lg">Search</button>
       </div>
     </form>
+    <a href="/map">Map mode</a>
   </div>
 </section>
 
@@ -156,10 +157,14 @@ Discover places
     </div>
 
   <div class="col-12 col-md-4">
-    <h2>Top featured places</h2>
+    <h2>Most used tags</h2>
     <div class="card">
       <div class="card-block">
-        tags in here
+        {% for t in topTags %}
+        <span class="badge badge-default p-2 m-1">
+          {{t.name}}
+        </span>
+        {% endfor %}
       </div>
     </div>
   </div>
