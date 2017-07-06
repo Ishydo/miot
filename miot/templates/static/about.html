@@ -46,8 +46,8 @@
       <div class="card card-inverse card-primary mb-3 white">
         <div class="card-block">
           <h4>Learn more about this small platform</h4>
-          <p class="ms-3">About the concept and the idea behind this project and the physical web.</p>
-          <a href="#" class="btn btn-outline-secondary">Read more</a>
+          <p class="my-3">About the concept and the idea behind this project and the physical web.</p>
+          <a href="#about" class="btn btn-outline-secondary">Read more</a>
         </div>
       </div>
     </div>
@@ -55,8 +55,8 @@
       <div class="card card-inverse card-danger mb-3 white">
         <div class="card-block">
           <h4>Learn to create and broadcast content</h4>
-          <p class="my-3">About the concept and the idea behind this project and the physical web.</p>
-          <a href="#" class="btn btn-outline-secondary">Read more</a>
+          <p class="my-3">Become a creator of physical web content in a few steps.</p>
+          <a href="#getting-started-creator" class="btn btn-outline-secondary">Read more</a>
         </div>
       </div>
     </div>
@@ -65,7 +65,7 @@
         <div class="card-block">
           <h4>Discover some great places or objects</h4>
           <p class="my-3">Navigate through the content of miot users. There are plenty of things!</p>
-          <a href="#" class="btn btn-outline-secondary">Read more</a>
+          <a href="#discover" class="btn btn-outline-secondary">Read more</a>
         </div>
       </div>
     </div>
@@ -74,7 +74,7 @@
   <div class="row">
     <div class="col-12">
       <p>
-        <footer class="blockquote-footer">The cotent of this page is highly inspired by <a href="https://google.github.io/physical-web/" target="_blank"><cite title="Source Title">Google on the Physical Web</cite></a></footer>
+        <footer class="blockquote-footer">The content of this page is highly inspired by <a href="https://google.github.io/physical-web/" target="_blank"><cite title="Source Title">Google on the Physical Web</cite></a></footer>
       </p>
     </div>
   </div>
@@ -82,12 +82,12 @@
 
 <div class="container my-5">
 
-  <div class="col-12">
+  <div class="col-12" id="about">
     <h1 class="display-4 mb-3">You can create the physical web!</h1>
     <div class="row d-flex flex-md-row">
       <div class="col-12 col-md-6">
         <p class="text-muted">
-          Thy Physical Web is a new and very easy way to interact with physical
+          The Physical Web is a new and very easy way to interact with physical
           places and objects. You basically configure beacons to stream URLs of
           your choice for users to get notified about your content.
           <strong>And they do not even need an app!</strong>
@@ -140,7 +140,7 @@
 
 
     <div class="row mt-4">
-      <div class="col-12">
+      <div class="col-12" id="getting-started-creator">
         <h1 class="display-4 mb-3">Getting started for creators</h1>
 
         <p class="text-muted">
@@ -160,13 +160,13 @@
                 If you do not own or do not want to buy beacons, it is no big deal
                 you can create content anyway without limitations!
               </p>
-              <a class="btn btn-success" href="https://estimote.com/">Get estimote beacons</a>
-          </div>
+              <a class="btn btn-success" href="https://estimote.com/" target="_blank">Get estimote beacons</a>
+            </div>
             <div class="row mt-5">
               <h3>2. Create your content</h3>
               <p class="text-muted">
-                On your dashboard, click <strong>Add Point of Interest</strong>
-                and fill the informations. You can specify a name, a position, a category,
+                When you are logged in, click <strong>Add Point of Interest</strong> on your dashboard
+                and simply fill the form. You can specify a name, a position, a category,
                 an image and tags. A homepage will automatically get created for it, you can start
                 edit the content and add new pages if needed.
               </p>
@@ -181,7 +181,7 @@
             <div class="row mt-5">
               <h3>3. Configure beacon</h3>
               <p class="text-muted">
-                Create an app from your estimote dashboard and get the credentials.
+                Create an app from your <a href="https://cloud.estimote.com/" target="_blank">estimote dashboard</a> and get the credentials.
                 Once you specify these credentials on your miot dashboard, your beacons will
                 be detected and you will be able to preconfigure a few parameters and the streamed URL.
               </p>
@@ -189,7 +189,7 @@
                 <h5><strong>Do not forget to apply modifications</strong></h5>
                 <p>
                   When you update the beacons settings on your dashboard, they
-                  are considered as pending settings. You must connect your beacon with the
+                  are considered as <strong>pending settings</strong>. You must connect your beacon with the
                   official app to apply the changes!
                 </p>
               </div>
@@ -208,7 +208,7 @@
 
 
     <div class="row mt-4">
-      <div class="col-12">
+      <div class="col-12" id="discover">
         <h1 class="display-4 mb-3">Discover new content</h1>
 
         <p class="text-muted">
@@ -224,48 +224,57 @@
               <p class="text-muted">
                 There are two different layouts available on the discover page. The
                 first one is a basic text page with cases for each point of interest to
-                visit. You can search and filter by category and tags.
+                visit. You can search and filter by category and tags. The second layout is
+                basically an interactive google map on which you can see points of interest in live.
+                This way you can access the content even if you are not on place.
               </p>
-              <a class="btn btn-success mt-3" href="https://estimote.com/">Get estimote beacons</a>
-          </div>
+              <a class="btn btn-success mt-3 mr-2" href="{% url "poi_list" %}">Browse discovery page</a>
+              <a class="btn btn-success mt-3" href="{% url "poi_map" %}">Browse discovery map</a>
+            </div>
             <div class="row mt-5">
-              <h3>2. Create your content</h3>
+              <h3>2. Walking around</h3>
               <p class="text-muted">
-                On your dashboard, click <strong>Add Point of Interest</strong>
-                and fill the informations. You can specify a name, a position, a category,
-                an image and tags. A homepage will automatically get created for it, you can start
-                edit the content and add new pages if needed.
+                The main concept is that the content is streamed through the beacons. If you go out and walk
+                you should be able to see the notification of a nearby place by watching your screen!
               </p>
               <p class="text-muted">
-                This way, you can actually create a
-                <strong>micro website for your physical place or object</strong>.
-                Oh! Of course, you can edit the content any time!
+                Nearby notifications are not visible by default on iOS, you have to make a small configuration in order to see
+                them. This page provide more informations about it.
               </p>
-              <a class="btn btn-info mt-3" href="{% url "dashboard" %}">Administration dashboard</a>
 
             </div>
-            <div class="row mt-5">
-              <h3>3. Configure beacon</h3>
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="row mt-4">
+      <div class="col-12">
+        <h1 class="display-4 mb-3">Frequently Asked Questions</h1>
+
+        <p class="text-muted">
+          Some of the asked questions that deserve a complete answer are listed here.
+          Be sure to have a look at it before contacting us!
+        </p>
+
+        <div class="row pl-5">
+          <div class="col-12 col-md-8">
+            <div class="row my-3">
+              <h3>How to access Physical Web on iOS</h3>
               <p class="text-muted">
-                Create an app from your estimote dashboard and get the credentials.
-                Once you specify these credentials on your miot dashboard, your beacons will
-                be detected and you will be able to preconfigure a few parameters and the streamed URL.
+                On iOS, URL addresses are available in the Today view whenever you’re in range of a beacon broadcasting Eddystone-URL.
               </p>
-              <div class="alert alert-info">
-                <h5><strong>Do not forget to apply modifications</strong></h5>
-                <p>
-                  When you update the beacons settings on your dashboard, they
-                  are considered as pending settings. You must connect your beacon with the
-                  official app to apply the changes!
-                </p>
-              </div>
-            </div>
-            <div class="row mt-5">
-              <h3>4. Deploy</h3>
               <p class="text-muted">
-                Once it is done, simply place the beacon at the concerned place! Users
-                are now ready to get your content.
+                To enable Physical Web notifications:
+                <ol>
+                  <li>install Chrome</li>
+                  <li>add Chrome widget to the Today view in Notification Center</li>
+                  <li>make sure you have Bluetooth on and Location Services enabled for Chrome</li>
+                </ol>
               </p>
+              <a class="mt-3" href="https://community.estimote.com/hc/en-us/articles/218451777--Eddystone-URL-how-to-enable-Physical-Web-in-Chrome-" target="_blank">Estimote official tutorial</a>
             </div>
           </div>
         </div>
@@ -275,8 +284,7 @@
 
   </div>
 
-
-<div class="py-5"></div>
+  <div class="py-5"></div>
 
 
 </div>
