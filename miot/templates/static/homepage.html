@@ -27,7 +27,7 @@
 </div>
 
 <div class="container my-5">
-  <div class="container-fluid d-flex flex-column flex-md-row">
+  <div class="d-flex flex-column flex-md-row row">
     <div class="col-12 col-md-6">
       <p class="text-muted">
         <strong>miot</strong> is a tool for you to propose a unique experience for users,
@@ -45,28 +45,26 @@
   </div>
 </div>
 
-<div class="container my-5">
-
+<div class="container mt-5">
+  <div class="row">
     <div class="col-12 col-md-8">
-      <h1>Discover the best places defined by users on this platform!</h1>
-      <p>
+      <h1 class="display-4">miot users' best places</h1>
+      <p class="text-muted">
         These are some of the most visited points of interest defined on this platform.
         But there are more! Do not wait to create your own or to discover new places. All you need
         is a few minutes and why not beacons.
       </p>
     </div>
-    <div class="hidden-sm-down col-md-8 py-3">
-      <a href="{% url "poi_list" %}" class="btn btn-outline-info">Discover places</a>
-      <a href="{% url "dashboard" %}" class="btn btn-outline-danger">Create content</a>
-    </div>
   </div>
+</div>
 
 
-<div class="container-fluid mt-4 p-0">
+<div class="container-fluid my-4 p-0">
   <div class="col-12 p-0">
     <div id="map-canvas"></div>
   </div>
 </div>
+<div class="m-4 p-2"></div>
 
 <div id="markers" style="display:none;">
   [
