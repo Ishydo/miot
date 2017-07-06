@@ -1,5 +1,13 @@
 /* Sticky footer styles
 -------------------------------------------------- */
+.about-sections h4{
+  font-weight: 800;
+}
+
+.white{
+  color: #f8f8f8;
+}
+
 html {
   position: relative;
   min-height: 100%;
@@ -18,19 +26,19 @@ html {
   background-position: 0 15%;
 }
 
-.cover h1{
+.cover h1, .about h1{
   color: #f8f8f8;
   font-weight: 800;
   font-size: 6em;
   letter-spacing: -8px;
 }
 
-.cover p{
+.cover p, .about p{
   color: #f8f8f8;
   font-size: 1.4em;
 }
 
-.cover strong{
+.cover strong, .about strong{
   background-color: white;
   color: #222;
   padding: 0px 5px 2px 5px;

@@ -6,7 +6,7 @@ from miot.views import page_views, poi_views, profile_views, static_views
 urlpatterns = [
     url(r'^places$', poi_views.PointOfInterestListViewPos.as_view(), name="poi_list"),
     url(r'^map$', poi_views.PointOfInterestListViewMap.as_view(), name="poi_map"),
-
+    url(r'^about$', static_views.AboutView.as_view(), name="about"),
 
 
     url(r'^dashboard/$', profile_views.Dashboard.as_view(), name="dashboard"),

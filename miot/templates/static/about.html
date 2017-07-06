@@ -1,0 +1,284 @@
+{% extends "layout/base.html" %}
+
+{% load render_bundle from webpack_loader %}
+{% load static %}
+
+{% block title %}miot About{% endblock %}
+
+{% block styles %}
+{% render_bundle 'frontend' 'css' %}
+{% endblock %}
+
+{% block content %}
+
+<div class="container-fluid about p-0" style="background-image:url('{% static 'bg.jpg' %}');">
+  <div class="filter py-5 d-flex flex-column align-items-left justify-content-center">
+    <div class="container">
+      <div class="col-12">
+        <h1>about</h1>
+        <p>What is it, why is it and how to use</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container my-5">
+  <div class="container-fluid d-flex flex-column flex-md-row row">
+    <div class="col-12 col-md-6">
+      <p class="text-muted">
+        On this page you will <strong>learn the concept of miot</strong> and everything you need
+        to know about <strong>how to create your own content</strong> and stream it through your
+        estimote beacon.
+      </p>
+    </div>
+    <div class="col-12 col-md-6">
+      <p class="text-muted">
+        It is very simple to use and you won't need any technical knowledge. It is
+        a perfect tool for anyone who wants to contribute and provide content to the physical web!
+      </p>
+    </div>
+  </div>
+</div>
+
+<div class="container about-sections">
+  <div class="row">
+    <div class="col-12 col-md-4">
+      <div class="card card-inverse card-primary mb-3 white">
+        <div class="card-block">
+          <h4>Learn more about this small platform</h4>
+          <p class="ms-3">About the concept and the idea behind this project and the physical web.</p>
+          <a href="#" class="btn btn-outline-secondary">Read more</a>
+        </div>
+      </div>
+    </div>
+    <div class="col-12 col-md-4">
+      <div class="card card-inverse card-danger mb-3 white">
+        <div class="card-block">
+          <h4>Learn to create and broadcast content</h4>
+          <p class="my-3">About the concept and the idea behind this project and the physical web.</p>
+          <a href="#" class="btn btn-outline-secondary">Read more</a>
+        </div>
+      </div>
+    </div>
+    <div class="col-12 col-md-4">
+      <div class="card card-inverse card-success mb-3 white">
+        <div class="card-block">
+          <h4>Discover some great places or objects</h4>
+          <p class="my-3">Navigate through the content of miot users. There are plenty of things!</p>
+          <a href="#" class="btn btn-outline-secondary">Read more</a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <p>
+        <footer class="blockquote-footer">The cotent of this page is highly inspired by <a href="https://google.github.io/physical-web/" target="_blank"><cite title="Source Title">Google on the Physical Web</cite></a></footer>
+      </p>
+    </div>
+  </div>
+</div>
+
+<div class="container my-5">
+
+  <div class="col-12">
+    <h1 class="display-4 mb-3">You can create the physical web!</h1>
+    <div class="row d-flex flex-md-row">
+      <div class="col-12 col-md-6">
+        <p class="text-muted">
+          Thy Physical Web is a new and very easy way to interact with physical
+          places and objects. You basically configure beacons to stream URLs of
+          your choice for users to get notified about your content.
+          <strong>And they do not even need an app!</strong>
+        </p>
+      </div>
+      <div class="col-12 col-md-6">
+        <p class="text-muted">
+          This platform called MyInternetOfThings, or miot, is the perfect tool for you
+          to create attractive content about a place or object before configuring your
+          beacons to stream it. And all of this in the same place!
+        </p>
+      </div>
+    </div>
+
+
+    <div class="row mt-4">
+      <div class="col-12 col-md-3 mr-0">
+        <img alt="beacon" class="img-fluid" src="https://ignitezolutions.com/wp-content/uploads/2017/05/beacon_blue.png" />
+      </div>
+      <div class="col-12 col-md-9">
+        <h3>Everything in one single place</h3>
+        <p class="text-muted">
+          Normally, you would have to choose an existing web page in order to stream
+          its URL with your beacon. But the content is not very personal and maybe
+          not perfectly adapted to the concerned physical place or object. Another
+          solution would be to create your own online website, which
+          can be a hard and long task when you're not used to it.
+        </p>
+        <p class="text-muted">
+          <strong>
+            Using this platform, no more troubles! It is the easiest way
+            to create mobile optimized pages of your own to fit perfectly with the concerned
+            place or object. And you can pre-configure your <i>estimote</i> beacon from the same interface! Simply
+            choose the point of interest you just created.
+          </strong>
+        </p>
+      </div>
+    </div>
+
+    <div class="row mt-4">
+      <div class="col-12">
+        <p class="text-muted">
+          Does it sound good to you? Create an account and immediately become a miot content creator
+          by defining your first points of interest! Physical Web is something new, the more
+          we use it, the greatest it will become. So do not wait any more,
+          <a href="{% url "dashboard" %}">join the experience</a>.
+        </p>
+      </div>
+    </div>
+
+
+    <div class="row mt-4">
+      <div class="col-12">
+        <h1 class="display-4 mb-3">Getting started for creators</h1>
+
+        <p class="text-muted">
+          There are 4 very simple steps to get started with the platform and being
+          able to provide a great experience for users. Do not worry, it is nothing
+          complicated!
+        </p>
+
+        <div class="row pl-5">
+          <div class="col-12 col-md-8">
+            <div class="row my-3">
+              <h3>1. Get beacons</h3>
+              <p class="text-muted">
+                In order to stream your future URL, you will need beacons.
+                The supported beacons on miot are <i>estimotes</i>. If you have some,
+                you are ready to go. If not, you can get them on the official website.
+                If you do not own or do not want to buy beacons, it is no big deal
+                you can create content anyway without limitations!
+              </p>
+              <a class="btn btn-success" href="https://estimote.com/">Get estimote beacons</a>
+          </div>
+            <div class="row mt-5">
+              <h3>2. Create your content</h3>
+              <p class="text-muted">
+                On your dashboard, click <strong>Add Point of Interest</strong>
+                and fill the informations. You can specify a name, a position, a category,
+                an image and tags. A homepage will automatically get created for it, you can start
+                edit the content and add new pages if needed.
+              </p>
+              <p class="text-muted">
+                This way, you can actually create a
+                <strong>micro website for your physical place or object</strong>.
+                Oh! Of course, you can edit the content any time!
+              </p>
+              <a class="btn btn-info" href="{% url "dashboard" %}">Administration dashboard</a>
+
+            </div>
+            <div class="row mt-5">
+              <h3>3. Configure beacon</h3>
+              <p class="text-muted">
+                Create an app from your estimote dashboard and get the credentials.
+                Once you specify these credentials on your miot dashboard, your beacons will
+                be detected and you will be able to preconfigure a few parameters and the streamed URL.
+              </p>
+              <div class="alert alert-info">
+                <h5><strong>Do not forget to apply modifications</strong></h5>
+                <p>
+                  When you update the beacons settings on your dashboard, they
+                  are considered as pending settings. You must connect your beacon with the
+                  official app to apply the changes!
+                </p>
+              </div>
+            </div>
+            <div class="row mt-5">
+              <h3>4. Deploy</h3>
+              <p class="text-muted">
+                Once it is done, simply place the beacon at the concerned place! Users
+                are now ready to get your content.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="row mt-4">
+      <div class="col-12">
+        <h1 class="display-4 mb-3">Discover new content</h1>
+
+        <p class="text-muted">
+          You can discover the content generated by the users of this platform
+          by browsing the discover page and/or walking near a beacon in physical web mode.
+          These two are described in the following chapters.
+        </p>
+
+        <div class="row pl-5">
+          <div class="col-12 col-md-8">
+            <div class="row my-3">
+              <h3>1. Browsing the discover page</h3>
+              <p class="text-muted">
+                There are two different layouts available on the discover page. The
+                first one is a basic text page with cases for each point of interest to
+                visit. You can search and filter by category and tags.
+              </p>
+              <a class="btn btn-success mt-3" href="https://estimote.com/">Get estimote beacons</a>
+          </div>
+            <div class="row mt-5">
+              <h3>2. Create your content</h3>
+              <p class="text-muted">
+                On your dashboard, click <strong>Add Point of Interest</strong>
+                and fill the informations. You can specify a name, a position, a category,
+                an image and tags. A homepage will automatically get created for it, you can start
+                edit the content and add new pages if needed.
+              </p>
+              <p class="text-muted">
+                This way, you can actually create a
+                <strong>micro website for your physical place or object</strong>.
+                Oh! Of course, you can edit the content any time!
+              </p>
+              <a class="btn btn-info mt-3" href="{% url "dashboard" %}">Administration dashboard</a>
+
+            </div>
+            <div class="row mt-5">
+              <h3>3. Configure beacon</h3>
+              <p class="text-muted">
+                Create an app from your estimote dashboard and get the credentials.
+                Once you specify these credentials on your miot dashboard, your beacons will
+                be detected and you will be able to preconfigure a few parameters and the streamed URL.
+              </p>
+              <div class="alert alert-info">
+                <h5><strong>Do not forget to apply modifications</strong></h5>
+                <p>
+                  When you update the beacons settings on your dashboard, they
+                  are considered as pending settings. You must connect your beacon with the
+                  official app to apply the changes!
+                </p>
+              </div>
+            </div>
+            <div class="row mt-5">
+              <h3>4. Deploy</h3>
+              <p class="text-muted">
+                Once it is done, simply place the beacon at the concerned place! Users
+                are now ready to get your content.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+  </div>
+
+
+<div class="py-5"></div>
+
+
+</div>
+
+{% endblock %}
