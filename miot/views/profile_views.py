@@ -71,7 +71,7 @@ class UpdateBeaconView(LoginRequiredMixin, TemplateView):
                     json=upd)
             v = requests.post("https://cloud.estimote.com/v2/devices/{0}".format(bid),
                     headers=headers,
-                    auth=("miot-4lk", "9e14fb4f796324bb6bfac41a99a0f6aa"),
+                    auth=("{0}".format(request.user.profile.estimote_app_id), "{0}".format(request.user.profile.estimote_app_token)),
                     json=upd2)
             print(u.status_code)
             print(v.status_code)

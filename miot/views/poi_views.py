@@ -1,5 +1,5 @@
 from django.views.generic import ListView, DetailView, CreateView, DeleteView, UpdateView, TemplateView
-from miot.models import PointOfInterest, Page, Profile, get_near_poi
+from miot.models import PointOfInterest, Page, Profile, Category, get_near_poi
 from miot.forms import PointOfInterestForm
 from django.utils.safestring import mark_safe
 from django.shortcuts import render
@@ -51,25 +51,31 @@ class PointOfInterestListViewPos(ListView):
 
     def get_queryset(self):
         result = super(PointOfInterestListViewPos, self).get_queryset()
-        if self.request.GET.get("q") is not None and self.request.GET.get("q") != "":
+        if ("q" in self.request.GET and self.request.GET.get("q") != "") or "c" in self.request.GET:
             query = self.request.GET.get("q")
-            query_list = query.split()
-            result = PointOfInterest.objects.filter(
-                       reduce(lambda x, y: x | y, [Q(name__icontains=word) for word in query_list]) |
-                       (Q(tags__name__in=query_list))
-                       ).distinct()
+            if query is not None and query != "":
+                query_list = query.split()
+                result = PointOfInterest.objects.filter(
+                           reduce(lambda x, y: x | y, [Q(name__icontains=word) for word in query_list]) |
+                           (Q(tags__name__in=query_list))
+                           ).distinct()
+            if self.request.GET.get("c") != "all":
+                result = result.filter(category__id=self.request.GET.get("c"))
             return result
         else:
-            return PointOfInterest.objects.filter(active=True)
-
+            result = PointOfInterest.objects.filter(active=True)
+            if self.request.GET.get("c") != "all" and "c" in self.request.GET:
+                result = result.filter(category__id=self.request.GET.get("c"))
+            return result
 
     def get_context_data(self, **kwargs):
         context = super(PointOfInterestListViewPos, self).get_context_data(**kwargs) # get the default context data
         context["bestPois"] = sorted(PointOfInterest.objects.filter(active=True)[:3], key=lambda p: p.hit_count.hits, reverse=True)
         context["topTags"] = PointOfInterest.tags.most_common()[:10]
+        context["categories"] = Category.objects.all()
         if self.request.GET.get("lat") is not None:
             context["nearPois"] = get_near_poi(self.request.GET.get("lat"), self.request.GET.get("lon"))
-        if self.request.GET.get("q") is not None:
+        if "q" in self.request.GET or "c" in self.request.GET:
             context["search"] = True
         return context
 

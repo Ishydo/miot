@@ -11,6 +11,8 @@ from hitcount.models import HitCount
 from django.contrib.gis.geos import Point
 from django.contrib.gis.db.models.functions import Distance
 from django.contrib.gis.measure import D
+from miot.utils import *
+from miotProject.settings import MIOT_LONG_URL_POI
 
 USER_MODEL = getattr(settings, 'AUTH_USER_MODEL', 'auth.User')
 
@@ -44,6 +46,7 @@ class Category(models.Model):
 class PointOfInterest(models.Model, HitCountMixin):
     name = models.CharField(max_length=120)
     slug = AutoSlugField(populate_from='name')
+    short_url = models.URLField(max_length=50)
     created = models.DateTimeField(auto_now_add=True, editable=False)
     last_updated = models.DateTimeField(auto_now=True, editable=False)
     featured_image = models.ImageField(upload_to="uploads/poi")
@@ -95,12 +98,16 @@ def save_user_profile(sender, instance, **kwargs):
 @receiver(post_save, sender=PointOfInterest)
 def create_poi_page(sender, instance, created, **kwargs):
     if created:
-        Page.objects.create(poi=instance, title="Homepage", content="Your content here.", template=Template.objects.first())
+        long_url = "{0}/{1}".format(MIOT_LONG_URL_POI, instance.slug)
+        instance.short_url = get_short_url(long_url)
+        instance.save()
+        # Creating default page
+        Page.objects.create(poi=instance, title="{0} homepage".format(instance.name), content="Your content here.", template=Template.objects.first())
 
 
 # utils
-def get_near_poi(lat, long):
-    location = Point(float(long), float(lat))
+def get_near_poi(lat, longi):
+    location = Point(float(longi), float(lat))
     return PointOfInterest.objects \
         .filter(position__distance_lte=(location, D(km=10))) \
         .annotate(distance=Distance('position', location)) \
