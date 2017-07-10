@@ -33,7 +33,7 @@ GoogleMapsLoader.load(function(google) {
     var gMarker = new google.maps.Marker({position: pos, map: map,});
 
     // Create the info bubble
-    var info = new google.maps.InfoWindow({content: '<a href="'+ marker.href +'"><img src="'+ marker.img +'" style="max-width:100%;" class="rounded"><h6 class="my-1">' + marker.name + '</h6></a>', maxWidth: 300,});
+    var info = new google.maps.InfoWindow({content: '<div class="text-center"><a href="'+ marker.href +'"><img src="'+ marker.img +'" style="max-width: 100%;" class="rounded"><h6 class="my-1">' + marker.name + '</h6></a></div>', maxWidth: 100,});
 
     // Listener on click on marker
     gMarker.addListener('click', function(){info.open(map, gMarker);});

@@ -73,6 +73,7 @@
     "name": "{{poi.name}}",
     "slug": "{{poi.slug}}",
     "href": "{% url "poi_detail" poi.slug %}",
+    "img": "{{ poi.featured_image.url }}",
     "position": {
       "lat": "{{poi.position.get_y}}",
       "lon": "{{poi.position.get_x}}"
