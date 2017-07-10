@@ -8,6 +8,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
   {% render_bundle 'main' %}
+  {% render_bundle 'frontend' 'css' %}
+
   <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
 
   <!-- Styles for this particular page -->
@@ -18,6 +20,8 @@
 
   <!-- Page content, brace yourselves -->
   {% block content %}{% endblock %}
+
+  <div class="py-5">
 
   <!-- Specific scripts for this particular page -->
   {% block scripts %}{% endblock %}

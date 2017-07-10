@@ -13,15 +13,34 @@ Discover places
 
 <section class="jumbotron text-center mb-0 p-3">
   <div class="container">
-    <form action=""  method="get">
+    <form action=""  method="get" class="mt-3">
       <div class="form-group row">
-        <div class="col-8 mr-1 p-0">
-          <input type="text" class="form-control" id="lgFormGroupInput" name="q" placeholder="museum ">
+        <div class="col-12">
+          <div class="input-group">
+            <input type="text" class="form-control" id="lgFormGroupInput" name="q" placeholder="museum" {% for key, value in request.GET.items %}{% if key == 'q' %}value="{{ value }}"{% endif %}{% endfor %}>
+            <button type="submit" class="input-group-addon btn-primary"><i class="fa fa-fw fa-search"></i></button>
+          </div>
         </div>
-        <div class="col-2 ml-0 p-0">
-        <button type="submit" class="btn btn-primary">Search</button>
       </div>
-    </div>
+
+      <button class="btn btn-primary btn-sm" type="button" data-toggle="collapse" data-target="#collapseMoreFilters" aria-expanded="false" aria-controls="collapseExample">
+        More filters
+      </button>
+      <a href="{% url "poi_map" %}" class="btn btn-primary btn-sm">
+        <i class="fa fa-fw fa-globe"></i>&nbsp;Switch to map mode
+      </a>
+
+      <div class="collapse pt-2" id="collapseMoreFilters">
+        <div class="from-group">
+          <select name="c" class="form-control">
+            <option value="all" default="">Select category</option>
+            {% for c in categories %}
+            <option value="{{c.id}}">{{c.name}}</option>
+            {% endfor %}
+          </select>
+        </div>
+      </div>
+
     </form>
   </div>
 </section>

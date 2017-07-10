@@ -1,5 +1,11 @@
 /* Sticky footer styles
 -------------------------------------------------- */
+
+.badge-link{
+  color: #f8f8f8 !important;
+  text-decoration: none !important;
+}
+
 .about-sections h4{
   font-weight: 800;
 }

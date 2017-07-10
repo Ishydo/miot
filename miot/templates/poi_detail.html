@@ -63,9 +63,10 @@ body{
   <hr class="mx-3"/>
 
   <p class="text-muted"><i class="fa fa-eye fa-fw"></i>&nbsp;Visits : {{ hitcount.total_hits }}</p>
+  <p class="text-muted"><i class="fa fa-link fa-fw"></i>&nbsp;Short URL : {{ poi.short_url }}</p>
 
   {% for t in poi.tags.all %}
-  <span class="badge badge-default p-2 m-1">{{t.name}}</span>
+  <span class="badge badge-default p-2 m-1"><a href="{% url "poi_list" %}?q={{t.name}}&amp;c=all" class="badge-link">{{t.name}}</a></span>
   {% endfor %}
 
 
@@ -89,6 +90,15 @@ body{
       </div>
     </div>
   </div>
+  {% empty %}
+
+    <div class="card text-center py-3">
+      <div class="card-content">
+        <i class="fa fa-fw fa-frown-o fa-3x text-muted"></i>
+        <p><strong>No similar points of interest found.</strong></p>
+      </div>
+    </div>
+
   {% endfor %}
 
 </div>
