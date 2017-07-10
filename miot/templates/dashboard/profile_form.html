@@ -7,15 +7,42 @@
 
 <div class="col-8 mb-5">
 
-<form action="" method="post">
+  <div class="row mt-3">
+    <div class="col-12 col-md-5">
+      <p><strong>Do not know what to do ?</strong></p>
+      <p class="text-muted">
+        You can buy beacons and create a new app and credentials
+      from the official estimote platform.<br />
+      <small><a href="https://cloud.estimote.com" target="_blank">cloud.estimote.com</a></small>
+      </p>
+    </div>
+  </div>
 
-{% csrf_token %}
-{{ form.as_p }}
-<button type="submit" role="submit">Save</button>
 
-</form>
+  <div class="row">
+    <div class="col-12 col-md-5">
+      <form action="" method="post">
+        {% csrf_token %}
 
 
+        <div class="form-group">
+
+          <label>Estimote Application ID</label>
+          {{form.estimote_app_id|addclass:"form-control"}}
+
+
+          <label>Estimote Application Token</label>
+          {{form.estimote_app_token|addclass:"form-control"}}
+
+        </div>
+
+        <button type="submit" role="submit">Save</button>
+
+      </form>
+
+
+    </div>
+  </div>
 </div>
 
 {% endblock %}
