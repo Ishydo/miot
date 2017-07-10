@@ -16,7 +16,11 @@ module.exports = {
     filename: "[name]-[hash].js",
   },
   plugins: [
-    new webpack.ProvidePlugin({$: "jquery", jQuery: "jquery","window.jQuery": "jquery", "Tether": 'tether',}),
+    new webpack.ProvidePlugin({
+      $: "jquery",
+      jQuery: "jquery",
+      "window.jQuery": "jquery",
+      "Tether": 'tether',}),
     new BundleTracker({filename: './webpack-stats.json'}),
     new ExtractTextPlugin('[name]-[contenthash].css')
   ],
