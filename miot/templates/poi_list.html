@@ -53,7 +53,7 @@ Discover places
     <div class="col-12 col-md-4 mb-3">
       <div class="card">
         <a href="{% url "poi_detail" p.slug %}" class="card-block p-0" style="background-image:url('{{p.featured_image.url}}'); background-size: cover;">
-          <div class="card-filter" style="background: rgba(0,0,0,.4); color: #f8f8f8;">
+          <div class="card-filter h-100" style="background: rgba(0,0,0,.4); color: #f8f8f8;">
             <div class="p-4">
               <h3 class="card-title">{{p.name}}</h3>
               <p class="card-text">{{p.page_set.first.content|striptags|truncatechars_html:30}}</p>
@@ -106,7 +106,7 @@ Discover places
     <div class="col-12 col-md-4 mb-3">
       <div class="card h-100">
         <a href="{% url "poi_detail" p.slug %}" class="card-block p-0" style="background-image:url('{{p.featured_image.url}}'); background-size: cover;">
-          <div class="card-filter" style="background: rgba(0,0,0,.4); color: #f8f8f8;">
+          <div class="card-filter h-100" style="background: rgba(0,0,0,.4); color: #f8f8f8;">
             <div class="p-4">
               <h3 class="card-title">{{p.name|truncatechars:30}}</h3>
               <p class="card-text">{{p.page_set.first.content|striptags|truncatechars_html:30}}</p>
