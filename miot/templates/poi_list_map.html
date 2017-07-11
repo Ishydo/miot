@@ -23,22 +23,31 @@ Discover places
         </div>
       </div>
 
-      <button class="btn btn-primary btn-sm" type="button" data-toggle="collapse" data-target="#collapseMoreFilters" aria-expanded="false" aria-controls="collapseExample">
-        More filters
-      </button>
-      <a href="{% url "poi_map" %}" class="btn btn-primary btn-sm">
-        <i class="fa fa-fw fa-globe"></i>&nbsp;Switch to map mode
-      </a>
-
-      <div class="collapse pt-2" id="collapseMoreFilters">
-        <div class="from-group">
-          <select name="c" class="form-control">
-            <option value="all" default="">Select category</option>
-            {% for c in categories %}
-            <option value="{{c.id}}">{{c.name}}</option>
-            {% endfor %}
-          </select>
+      <div class="row">
+        <div class="col-12 d-flex justify-content-between">
+          <button class="btn btn-primary btn-sm" type="button" data-toggle="collapse" data-target="#collapseMoreFilters" aria-expanded="false" aria-controls="collapseExample">
+            More filters
+          </button>
+          <a href="{% url "poi_list" %}" class="btn btn-primary btn-sm">
+            <i class="fa fa-fw fa-list"></i>&nbsp;Switch to list mode
+          </a>
         </div>
+
+        <div class="row">
+          <div class="col-12">
+            <div class="collapse pt-2 ml-2" id="collapseMoreFilters">
+              <div class="from-group">
+                <select name="c" class="form-control">
+                  <option value="all" default="">Select category</option>
+                  {% for c in categories %}
+                  <option value="{{c.id}}">{{c.name}}</option>
+                  {% endfor %}
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
+
       </div>
 
     </form>
@@ -47,7 +56,7 @@ Discover places
 
 <div id="markers" style="display:none;">
   [
-  {% for poi in pois %}
+  {% for poi in object_list %}
   {
     "name": "{{poi.name}}",
     "slug": "{{poi.slug}}",
@@ -63,13 +72,37 @@ Discover places
 </div>
 
 
+
+<div class="modal fade bd-example-modal-sm" id="noResultsModal" tabindex="-1" role="dialog" aria-labelledby="noResultsModal" aria-hidden="true">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">No results</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+       <p class="text-muted">Please try again with other parameters.</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
 <div class="container-fluid p-0">
-  <div id="map-canvas" style="min-width: 100%; min-height: 87vh;"></div>
+  <div id="map-canvas" style="min-width: 100%; min-height: 80vh;"></div>
 </div>
 
 <script>
 
-
+{% if not object_list %}
+$('#noResultsModal').modal();
+{% endif %}
 
 {% if not pois %}
 getLocation();
