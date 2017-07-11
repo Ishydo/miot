@@ -1,6 +1,7 @@
 {% extends "dashboard/base.html" %}
 
 {% load render_bundle from webpack_loader %}
+{% load static %}
 
 {% block title %}miot Dashboard{% endblock %}
 
@@ -129,16 +130,25 @@
           Beacons
         </div>
         <div class="card-block p-0">
-          <ul class="list-group list-group-flush">
+          <div class="list-group list-group-flush">
 
 
             {% for b in beacons %}
-            <li class="list-group-item"><i class="fa fa-podcast fa-fw"></i>&nbsp;<a href="{% url "beacon_update" b.identifier %}">{{b.identifier}}</a> - {{b.shadow.name}}</li>
+            <div class="list-group-item w-100 d-flex justify-content-between">
+              <div>
+                <img src="{% static "smallbeac.png" %}" alt="Beacon" class="mt-3 mr-2" />
+                <div class="d-inline-flex flex-column">
+                  {{b.shadow.name}}<br />
+                  <small class="text-muted">{{b.identifier}}</small>
+                </div>
+              </div>
+              <a href="{% url "beacon_update" b.identifier %}" class="btn btn-sm btn-secondary">Update</a>
+            </div>
 
             {% empty %}
 
             {% if beaconsToConfigure %}
-            <li class="list-group-item">
+            <div class="list-group-item">
               <img src="https://insideoutdoor.com/wp-content/uploads/2016/02/beacon-example31.png">
               <h5><strong>Estimote app not configured</strong></h5>
               <p class="text-muted">In order to use this feature, please configure an estimote app in your profile options.</p>
@@ -146,16 +156,16 @@
                 <a href="#" class="btn btn-info">How to do it</a>
                 <a href="{% url "profile_update" request.user.profile.pk %}" class="btn btn-success">Configure app in profile</a>
               </p>
-            </li>
+            </div>
             {% else %}
-            <li class="list-group-item">
+            <div class="list-group-item">
               <p><strong>No beacons detected through API.</strong></p>
-            </li>
+            </div>
             {% endif %}
 
             {% endfor %}
 
-          </ul>
+          </div>
         </div>
       </div>
     </div>
