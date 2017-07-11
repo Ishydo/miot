@@ -54,6 +54,7 @@ class UpdateBeaconView(LoginRequiredMixin, TemplateView):
         beacon = get_single_beacon(identifier, request.user.profile)
         context["beaconName"] = beacon["shadow"]["name"]
         context["beaconUrl"] = beacon["settings"]["advertisers"]["eddystone_url"][0]["url"]
+        context["pois"] = PointOfInterest.objects.filter(creator=request.user.profile)
         return render(request, "dashboard/beacon_edit.html", context=context)
 
     def post(self, request, identifier):

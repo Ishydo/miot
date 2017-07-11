@@ -107,7 +107,7 @@ class PointOfInterestCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateV
     form_class=PointOfInterestForm
     template_name = "dashboard/poi_form.html"
     success_url="/dashboard"
-    success_message = "%(name)s was created successfully"
+    success_message = "%(name)s point of interest was created successfully"
 
     def form_valid(self, form):
         form.instance.creator = self.request.user.profile
