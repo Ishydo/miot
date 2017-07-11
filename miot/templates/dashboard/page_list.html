@@ -3,31 +3,38 @@
 
 {% block content %}
 
-  <div class="col-12 pt-4">
+<div class="col-12 pt-4">
 
-    <h1>Your pages</h1>
-    <p class="text-muted">Here is the list of your previsouly created points of interest.</p>
+  <h1>Your pages</h1>
+  <p class="text-muted">Here is the list of your previsouly created points of interest.</p>
 
 
-    <div class="card">
-      <div class="card-block p-0">
-        <ul class="list-group list-group-flush">
-          {% for p in object_list %}
-          <li class="list-group-item d-flex justify-content-between">
-            <div>
-              {{p.title}}<br/>
-              <small class="text-muted p-0 m-0">{{p.poi.name}}</small>
-            </div>
-            <div>
-              <a href="{% url "page_update" p.slug %}" class="btn btn-primary btn-sm">Update</a>
-              <a href="{% url "page_delete" p.slug %}" class="btn btn-primary btn-danger btn-sm">Delete</a>
-            </div>
-          </li>
-          {% endfor %}
-        </ul>
-      </div>
+  <div class="card">
+    <div class="card-block p-0">
+      <ul class="list-group list-group-flush">
+        {% for p in object_list %}
+        <li class="list-group-item d-flex justify-content-between">
+          <div>
+            {{p.title}}<br/>
+            <small class="text-muted p-0 m-0">{{p.poi.name}}</small>
+          </div>
+          <div>
+            <a href="{% url "page_update" p.slug %}" class="btn btn-primary btn-sm">Update</a>
+            {% if p.poi.page_set.count == 1 %}
+            <span class="tooltip-wrapper" data-toggle="tooltip" data-placement="top" title="Cannot delete if it's the only page.">
+              <a href="#" class="disabled btn btn-primary btn-danger btn-sm">Delete</a>
+            </span>
+            {% else %}
+            <a href="{% url "page_delete" p.slug %}" class="btn btn-primary btn-danger btn-sm">Delete</a>
+
+            {% endif %}
+          </div>
+        </li>
+        {% endfor %}
+      </ul>
     </div>
   </div>
+</div>
 
 
 {% endblock %}

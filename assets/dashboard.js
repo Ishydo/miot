@@ -21,6 +21,5 @@ tinymce.init({
 
 import 'sortablejs'
 
-
 // The CSS
 import './dashboard.css'
