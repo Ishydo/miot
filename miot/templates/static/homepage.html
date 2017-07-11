@@ -11,6 +11,16 @@
 
 {% block content %}
 
+
+<style>
+
+.main-button{
+  border-radius: 2px;
+  font-weight: bold;
+}
+
+</style>
+
 <div class="container-fluid cover p-0" style="background-image:url('{% static 'bg.jpg' %}');">
   <div class="filter d-flex flex-column align-items-left justify-content-center">
     <div class="container">
@@ -18,8 +28,10 @@
         <h1>miot</h1>
         <p>A tool for <strong>you</strong> to create <strong>attractive content</strong> for the <strong>physical world</strong>.</p>
 
-        <a href="{% url "dashboard" %}" class="btn btn-info">Create content</a>
-        <a href="{% url "poi_list" %}" class="btn btn-info">Discover</a>
+        <a href="{% url "dashboard" %}" class="btn btn-danger main-button m-1"><i class="fa fa-fw fa-plus"></i>&nbsp;Contribute</a>
+        <a href="{% url "poi_list" %}" class="btn btn-info main-button m-1"><i class="fa fa-fw fa-globe"></i>&nbsp;Discover</a>
+        <a href="{% url "about" %}" class="btn btn-success main-button m-1"><i class="fa fa-fw fa-info"></i>&nbsp;More informations</a>&nbsp;
+
 
       </div>
     </div>
@@ -34,7 +46,6 @@
         visitors and curious people by defining places, events and points of interest and
         attach attractive content to it.
       </p>
-      <a href="{% url "about" %}" class="btn btn-primary">More informations about miot</a>
     </div>
     <div class="col-12 col-md-6">
       <p class="text-muted">
@@ -65,7 +76,7 @@
     <div id="map-canvas"></div>
   </div>
 </div>
-<div class="m-4 p-2"></div>
+
 
 <div id="markers" style="display:none;">
   [
