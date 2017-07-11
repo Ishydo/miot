@@ -25,7 +25,7 @@
       <div class="actions pt-1">
 
         <i class="fa fa-bell fa-fw"></i>&nbsp;
-        <i class="fa fa-question-circle fa-fw"></i>&nbsp;
+        <a href="{% url "about" %}" target="_blank"><i class="fa fa-question-circle fa-fw"></i></a>
         <a href="#" data-toggle="modal" data-target="#infoModal"><i class="fa fa-info-circle fa-fw"></i></a>&nbsp;
         <a href="{% url "account_logout" %}" class="btn btn-danger mb-2">Logout</a>
       </div>
@@ -103,6 +103,8 @@
           <p>
             If you want to know more, please visit the help page.
           </p>
+
+          <a href="{% url "about" %}" class="btn btn-info">Help page</a>
 
         </div>
         <div class="modal-footer">
