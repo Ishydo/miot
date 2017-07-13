@@ -1,22 +1,15 @@
-{% load render_bundle from webpack_loader %}
-<!DOCTYPE html>
-<html>
-<head>
-  <meta charset="utf-8">
-  <title>{% block title %}{% endblock %}</title>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+{% extends "page_templates/base_template.html" %}
 
-  {% render_bundle 'main' %}
-  {% render_bundle 'frontend' 'css' %}
+{% block template_content %}
+<div class="container-fluid default-header p-0" style="background-image:url('{% block the_bg %}{% endblock %}'); background-size: cover;">
+  <div class="filter">
+    <div class="container pb-3 pt-4">
+      <h1>{% block the_title %}{% endblock %}</h1>
+      <p>{% block the_category %}{% endblock %}</p>
+    </div>
+  </div>
+</div>
 
-  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+{% block content %}{% endblock %}
 
-
-</head>
-<body>
-
-  {% block content %}{% endblock %}
-
-</body>
-</html>
+{% endblock %}

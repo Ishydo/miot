@@ -1,42 +1,17 @@
 {% extends "page_templates/"|add:page.template.slug|add:".html" %}
 
+{% block title %}{{page.poi.name}} - {{page.title}}{% endblock %}
+{% block the_menu_title %}{{page.poi.name}}{% endblock %}
+{% block the_title %}{{page.title}}{% endblock %}
+{% block the_category %}{{page.poi.name}}{% endblock %}
+{% block the_bg %}{{page.poi.featured_image.url}}{% endblock %}
+
 {% block content %}
 
-<style>
-body{
-  font-size: 18px;
-}
-</style>
-
-{% if ordered_pages.count > 1 %}
-<!-- Menu if needed (multiple pages) -->
-<nav class="navbar navbar-inverse bg-inverse">
-  <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-  <a class="navbar-brand" href="#">{{page.poi.name}}</a>
-  <div class="collapse navbar-collapse" id="navbarText">
-    <ul class="navbar-nav mr-auto">
-      {% for p in ordered_pages %}
-      <li class="nav-item active">
-        {% if forloop.first %}
-        <a class="nav-link" href="{% url "poi_detail" p.poi.slug %}">{{p.title}}<span class="sr-only">(current)</span></a>
-        {% else %}
-        <a class="nav-link" href="{% url "page_detail" p.poi.slug p.slug %}">{{p.title}}<span class="sr-only">(current)</span></a>
-        {% endif %}  </li>
-        {% endfor %}
-      </ul>
-    </div>
-  </nav>
-  {% endif %}
-
-
-  <div class="container">
-    <h1>{{page.title}}</h1>
-    <p>Visits : {{ hitcount.total_hits }}</p>
+<div class="container mt-4 pb-4">
+  <div class="content">
     {{page.content|safe}}
   </div>
+</div>
 
-
-
-  {% endblock %}
+{% endblock %}

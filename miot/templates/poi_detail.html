@@ -4,41 +4,14 @@
 {{poi.name}}
 {% endblock %}
 
+{% block the_menu_title %}{{poi.name}}{% endblock %}
+{% block the_title %}{{poi.name}}{% endblock %}
+{% block the_category %}{{poi.category.name}}{% endblock %}
+{% block the_bg %}{{poi.featured_image.url}}{% endblock %}
+
 {% block content %}
 
-{% if ordered_pages.count > 1 %}
-<!-- Menu if needed (multiple pages) -->
-<nav class="navbar navbar-inverse bg-inverse">
-  <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-  <a class="navbar-brand" href="#">{{poi.name}}</a>
-  <div class="collapse navbar-collapse" id="navbarText">
-    <ul class="navbar-nav mr-auto">
-      {% for p in ordered_pages %}
-      <li class="nav-item active">
-        {% if forloop.first %}
-        <a class="nav-link" href="{% url "poi_detail" poi.slug %}">{{p.title}}<span class="sr-only">(current)</span></a>
-        {% else %}
-        <a class="nav-link" href="{% url "page_detail" poi.slug p.slug %}">{{p.title}}<span class="sr-only">(current)</span></a>
-        {% endif %}
-      </li>
-      {% endfor %}
-    </ul>
-  </div>
-</nav>
-{% endif %}
 
-
-<div class="container-fluid default-header p-0" style="background-image:url('{{poi.featured_image.url}}'); background-size: cover;">
-  <div class="filter">
-    <div class="container pb-3 pt-4">
-      <h1>{{poi.name}}</h1>
-      <p>{{poi.category.name}}</p>
-    </div>
-  </div>
-
-</div>
 
 
 <div class="container mt-4 pb-4">
