@@ -13,6 +13,7 @@ from django.contrib.gis.db.models.functions import Distance
 from django.contrib.gis.measure import D
 from miot.utils import *
 from miotProject.settings import MIOT_LONG_URL_POI
+from django.contrib import messages
 
 USER_MODEL = getattr(settings, 'AUTH_USER_MODEL', 'auth.User')
 
@@ -22,13 +23,13 @@ class Profile(models.Model):
     estimote_app_token = models.CharField(max_length=255, blank=True, null=True)
 
     def fetch_points_of_interests(self):
-        return PointOfInterest.objects.filter(creator=self)
+        return PointOfInterest.objects.filter(creator=self).order_by("-created")
 
     def fetch_points_of_interests_hits(self):
         return HitCount.objects.select_related().filter(object_pk__in=self.fetch_points_of_interests()).aggregate(Sum("hits"))
 
     def fetch_pages(self):
-        return Page.objects.select_related().filter(poi__in=self.fetch_points_of_interests())
+        return Page.objects.select_related().filter(poi__in=self.fetch_points_of_interests()).order_by("-created")
 
     def __str__(self):
         return self.user.username
@@ -101,9 +102,7 @@ def create_poi_page(sender, instance, created, **kwargs):
         long_url = "{0}/{1}".format(MIOT_LONG_URL_POI, instance.slug)
         instance.short_url = get_short_url(long_url)
         instance.save()
-        # Creating default page
         Page.objects.create(poi=instance, title="{0} homepage".format(instance.name), content="Your content here.", template=Template.objects.first())
-
 
 # utils
 def get_near_poi(lat, longi):
