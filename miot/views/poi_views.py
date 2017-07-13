@@ -9,7 +9,23 @@ from django.contrib import messages
 from django.db.models import Q
 from hitcount.views import HitCountDetailView
 from hitcount.models import HitCount
+
 from functools import reduce
+
+from django.core.exceptions import PermissionDenied, ObjectDoesNotExist
+
+class OwnerMixin(object):
+    def get_object(self, queryset=None):
+        """Returns the object the view is displaying."""
+        if queryset is None:
+            queryset = self.get_queryset()
+        slug = self.kwargs.get("slug", None)
+        queryset = queryset.filter(slug=slug,creator=self.request.user.profile)
+        try:
+            obj = queryset.get()
+        except ObjectDoesNotExist:
+            raise PermissionDenied
+        return obj
 
 
 class PointOfInterestListViewMap(ListView):
@@ -81,7 +97,7 @@ class PointOfInterestListViewPos(ListView):
             context["search"] = True
         return context
 
-class PointOfInterestManageListView(ListView):
+class PointOfInterestManageListView(LoginRequiredMixin, OwnerMixin, ListView):
     model = PointOfInterest
     template_name = "dashboard/poi_list.html"
 
@@ -110,14 +126,14 @@ class PointOfInterestCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateV
         messages.add_message(self.request, messages.INFO, "Page successfully created", extra_tags='poi_created')
         return super(PointOfInterestCreateView, self).form_valid(form)
 
-class PointOfInterestUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
+class PointOfInterestUpdateView(LoginRequiredMixin, OwnerMixin, SuccessMessageMixin, UpdateView):
     model=PointOfInterest
     form_class=PointOfInterestForm
     template_name="dashboard/poi_form.html"
     success_url="/dashboard"
     success_message = "%(name)s was updated successfully"
 
-class PointOfInterestDeleteView(LoginRequiredMixin, SuccessMessageMixin, DeleteView):
+class PointOfInterestDeleteView(LoginRequiredMixin, OwnerMixin, SuccessMessageMixin, DeleteView):
     model = PointOfInterest
     template_name = "dashboard/poi_delete.html"
     success_url = "/dashboard"
@@ -127,7 +143,7 @@ class PointOfInterestDeleteView(LoginRequiredMixin, SuccessMessageMixin, DeleteV
         messages.success(self.request, self.success_message)
         return super(PointOfInterestDeleteView, self).delete(request, *args, **kwargs)
 
-class PointOfInterestSelectView(LoginRequiredMixin, ListView):
+class PointOfInterestSelectView(LoginRequiredMixin, OwnerMixin, ListView):
     template_name="dashboard/select_poi.html"
     def get_queryset(self):
         return PointOfInterest.objects.filter(creator=self.request.user.profile)
