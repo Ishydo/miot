@@ -1,0 +1,42 @@
+{% extends "dashboard/base.html" %}
+{% load add_css %}
+
+{% block title %}miot - New page{% endblock %}
+
+{% block content %}
+
+
+<div class="col-8 pt-4">
+
+
+  <h1>{% if object %}Update{% else %}Add new{% endif %} Page</h1>
+  <p class="text-muted">You can add a new point of interest through this page.</p>
+
+  <form action="" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+
+    <div class="form-group {% if form.title.errors %}has-danger{% endif %}">
+      <label for="formGroupExampleInput">Title</label>
+      {{form.title|addclass:"form-control form-control-lg"}}
+      <div class="form-control-feedback">{% for e in form.title.errors %}{{e}}{% endfor %}</div>
+    </div>
+
+    <div class="form-group {% if form.content.errors %}has-danger{% endif %}">
+      <label for="formGroupExampleInput">Content</label>
+      {{form.content|addclass:"tinymce-editor"}}
+      <div class="form-control-feedback">{% for e in form.content.errors %}{{e}}{% endfor %}</div>
+    </div>
+
+    <div class="form-group {% if form.template.errors %}has-danger{% endif %}">
+      <label for="formGroupExampleInput">Template</label>
+      {{form.template|addclass:"form-control form-control-lg"}}
+      <div class="form-control-feedback">{% for e in form.template.errors %}{{e}}{% endfor %}</div>
+    </div>
+
+
+    <input type="submit" value="{% if object %}Update{% else %}Create{% endif %}" class="btn btn-primary" />
+  </form>
+
+</div>
+
+{% endblock %}

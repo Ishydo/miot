@@ -1,0 +1,16 @@
+[
+{
+  "model": "miot.pointofinterest",
+  "pk": 17,
+  "fields": {
+    "name": "HE-Arc",
+    "slug": "he-arc",
+    "created": "2017-05-31T16:59:16.061Z",
+    "last_updated": "2017-05-31T17:03:31.434Z",
+    "featured_image": "uploads/poi/blocnote_EaQi0vz.jpg",
+    "position": "SRID=4326;POINT (6.938607850817903 46.99761611397427)",
+    "active": true,
+    "creator": 2
+  }
+}
+]

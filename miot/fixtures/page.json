@@ -1,0 +1,15 @@
+[
+{
+  "model": "miot.page",
+  "pk": 19,
+  "fields": {
+    "title": "Description",
+    "created": "2017-05-31T17:04:20.008Z",
+    "last_updated": "2017-05-31T17:04:20.008Z",
+    "content": "Le contenu de la description de la HE-Arc.",
+    "poi": 17,
+    "template": 1,
+    "slug": "description"
+  }
+}
+]

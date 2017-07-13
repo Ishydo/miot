@@ -1,0 +1,40 @@
+{% extends "dashboard/base.html" %}
+
+{% block title %}miot - Beacon list{% endblock %}
+
+{% block content %}
+
+  <div class="col-5 pt-4">
+    <h1>Your beacons</h1>
+    <div class="card">
+      <div class="card-block p-0">
+        <ul class="list-group list-group-flush">
+          {% for b in beacons %}
+          <li class="list-group-item d-flex justify-content-between">
+            <div>
+              <span class="text-muted">({{b.shadow.name}})</span>
+            </div>
+            <div class="btn-group" role="group">
+              <button id="btnGroupActionsPoi" type="button" class="btn btn-secondary btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Actions
+              </button>
+              <div class="dropdown-menu" aria-labelledby="btnGroupActionsPoi">
+              <a class="dropdown-item" href="{% url "beacon_update" b.identifier %}">{{b.identifier}}</a>
+            </div>
+          </li>
+          {% empty %}
+
+            {% if beaconsToConfigure %}
+              Show how to configure
+            {% else %}
+              No beacons detected through api.
+            {% endif %}
+
+          {% endfor %}
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+{% endblock %}

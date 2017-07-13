@@ -1,0 +1,39 @@
+{% load render_bundle from webpack_loader %}
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>{% block title %}{% endblock %}</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  {% render_bundle 'main' %}
+  {% render_bundle 'frontend' 'css' %}
+
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
+  <!-- Styles for this particular page -->
+  {% block styles %}{% endblock %}
+
+</head>
+<body>
+
+  <!-- Page content, brace yourselves -->
+  {% block content %}{% endblock %}
+
+  <div class="py-5">
+
+  <!-- Specific scripts for this particular page -->
+  {% block scripts %}{% endblock %}
+
+
+  <footer class="footer bg-faded mt-3">
+    <div class="container py-4 px-4 d-flex justify-content-between">
+      <span class="text-muted">miot 2017</span>
+      <span class="text-muted"><a href="https://infinit8.io">INFINIT8</a></span>
+      <span class="text-muted badge badge-danger pt-2"><strong><a style="color: #f8f8f8;" target="_blank" href="https://goo.gl/forms/l4i3WRl7nK3k48bM2">Form IoT</a></strong></span>
+    </div>
+  </footer>
+
+</body>
+</html>

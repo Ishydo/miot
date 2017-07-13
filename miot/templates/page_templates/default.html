@@ -1,0 +1,15 @@
+{% extends "page_templates/base_template.html" %}
+
+{% block template_content %}
+<div class="container-fluid default-header p-0" style="background-image:url('{% block the_bg %}{% endblock %}'); background-size: cover;">
+  <div class="filter">
+    <div class="container pb-3 pt-4">
+      <h1>{% block the_title %}{% endblock %}</h1>
+      <p>{% block the_category %}{% endblock %}</p>
+    </div>
+  </div>
+</div>
+
+{% block content %}{% endblock %}
+
+{% endblock %}

@@ -1,0 +1,59 @@
+/* Sticky footer styles
+-------------------------------------------------- */
+
+/* Poi & Page styles */
+.content p{font-size: 18px;color: #636c72 !important;}
+.default-header{color: #f8f8f8;}
+
+.badge-link{
+  color: #f8f8f8 !important;
+  text-decoration: none !important;
+}
+
+.about-sections h4{
+  font-weight: 800;
+}
+
+.white{
+  color: #f8f8f8;
+}
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+
+.cover{
+  height: 75vh;
+  background-size: cover;
+  background-position: 0 15%;
+}
+
+.cover h1, .about h1{
+  color: #f8f8f8;
+  font-weight: 800;
+  font-size: 6em;
+  letter-spacing: -8px;
+}
+
+.cover p, .about p{
+  color: #f8f8f8;
+  font-size: 1.4em;
+}
+
+.cover strong, .about strong{
+  background-color: white;
+  color: #222;
+  padding: 0px 5px 2px 5px;
+}
+
+.filter{
+  background-color: rgba(0,0,0,.5);
+  height: 100%;
+}
+
+#map-canvas {
+  min-height: 55vh;
+  width: 100%;
+}

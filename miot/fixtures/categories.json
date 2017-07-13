@@ -1,0 +1,384 @@
+[
+{
+  "model": "miot.category",
+  "pk": 1,
+  "fields": {
+    "name": "Place",
+    "slug": "place",
+    "emoji_name": null,
+    "short_description": "A plce in the radius of the beacon.",
+    "parent": null
+  }
+},
+{
+  "model": "miot.category",
+  "pk": 2,
+  "fields": {
+    "name": "Airport",
+    "slug": "airport",
+    "emoji_name": null,
+    "short_description": "A place.",
+    "parent": 1
+  }
+},{
+  "model": "miot.category",
+  "pk": 3,
+  "fields": {
+    "name": "Amusement Park",
+    "slug": "amusement-park",
+    "emoji_name": null,
+    "short_description": "A place.",
+    "parent": 1
+  }
+},{
+  "model": "miot.category",
+  "pk": 4,
+  "fields": {
+    "name": "Art Gallery",
+    "slug": "art-gallery",
+    "emoji_name": null,
+    "short_description": "A place.",
+    "parent": 1
+  }
+},{
+  "model": "miot.category",
+  "pk": 5,
+  "fields": {
+    "name": "ATM",
+    "slug": "atm",
+    "emoji_name": null,
+    "short_description": "A place.",
+    "parent": 1
+  }
+},{
+  "model": "miot.category",
+  "pk": 6,
+  "fields": {
+    "name": "Bakery",
+    "slug": "bakery",
+    "emoji_name": null,
+    "short_description": "A place.",
+    "parent": 1
+  }
+},{
+  "model": "miot.category",
+  "pk": 7,
+  "fields": {
+    "name": "Bank",
+    "slug": "bank",
+    "emoji_name": null,
+    "short_description": "A place.",
+    "parent": 1
+  }
+},{
+  "model": "miot.category",
+  "pk": 8,
+  "fields": {
+    "name": "Bar",
+    "slug": "bar",
+    "emoji_name": null,
+    "short_description": "A place.",
+    "parent": 1
+  }
+},{
+  "model": "miot.category",
+  "pk": 9,
+  "fields": {
+    "name": "Beauty Salon",
+    "slug": "beauty-salon",
+    "emoji_name": null,
+    "short_description": "A place.",
+    "parent": 1
+  }
+},{
+  "model": "miot.category",
+  "pk": 10,
+  "fields": {
+    "name": "Bicycle Store",
+    "slug": "bicycle-store",
+    "emoji_name": null,
+    "short_description": "A place.",
+    "parent": 1
+  }
+},{
+  "model": "miot.category",
+  "pk": 11,
+  "fields": {
+    "name": "Bowling",
+    "slug": "bowling",
+    "emoji_name": null,
+    "short_description": "A place.",
+    "parent": 1
+  }
+},{
+  "model": "miot.category",
+  "pk": 12,
+  "fields": {
+    "name": "Bus Station",
+    "slug": "bus-station",
+    "emoji_name": null,
+    "short_description": "A place.",
+    "parent": 1
+  }
+},{
+  "model": "miot.category",
+  "pk": 13,
+  "fields": {
+    "name": "Cafe",
+    "slug": "cafe",
+    "emoji_name": null,
+    "short_description": "A place.",
+    "parent": 1
+  }
+},{
+  "model": "miot.category",
+  "pk": 14,
+  "fields": {
+    "name": "Casino",
+    "slug": "casino",
+    "emoji_name": null,
+    "short_description": "A place.",
+    "parent": 1
+  }
+},{
+  "model": "miot.category",
+  "pk": 15,
+  "fields": {
+    "name": "Clothing Store",
+    "slug": "clothing-store",
+    "emoji_name": null,
+    "short_description": "A place.",
+    "parent": 1
+  }
+},{
+  "model": "miot.category",
+  "pk": 16,
+  "fields": {
+    "name": "Florist",
+    "slug": "florist",
+    "emoji_name": null,
+    "short_description": "A place.",
+    "parent": 1
+  }
+},{
+  "model": "miot.category",
+  "pk": 17,
+  "fields": {
+    "name": "Food",
+    "slug": "food",
+    "emoji_name": null,
+    "short_description": "A place.",
+    "parent": 1
+  }
+},{
+  "model": "miot.category",
+  "pk": 18,
+  "fields": {
+    "name": "Gas Station",
+    "slug": "gas-station",
+    "emoji_name": null,
+    "short_description": "A place.",
+    "parent": 1
+  }
+},{
+  "model": "miot.category",
+  "pk": 19,
+  "fields": {
+    "name": "Gym",
+    "slug": "gym",
+    "emoji_name": null,
+    "short_description": "A place.",
+    "parent": 1
+  }
+},{
+  "model": "miot.category",
+  "pk": 20,
+  "fields": {
+    "name": "Haircare",
+    "slug": "haircare",
+    "emoji_name": null,
+    "short_description": "A place.",
+    "parent": 1
+  }
+},{
+  "model": "miot.category",
+  "pk": 21,
+  "fields": {
+    "name": "Hospital",
+    "slug": "hospital",
+    "emoji_name": null,
+    "short_description": "A place.",
+    "parent": 1
+  }
+},{
+  "model": "miot.category",
+  "pk": 22,
+  "fields": {
+    "name": "Jewelry Store",
+    "slug": "jewelry-store",
+    "emoji_name": null,
+    "short_description": "A place.",
+    "parent": 1
+  }
+},{
+  "model": "miot.category",
+  "pk": 23,
+  "fields": {
+    "name": "Library",
+    "slug": "library",
+    "emoji_name": null,
+    "short_description": "A place.",
+    "parent": 1
+  }
+},{
+  "model": "miot.category",
+  "pk": 24,
+  "fields": {
+    "name": "Meal Takeaway",
+    "slug": "meal-takeaway",
+    "emoji_name": null,
+    "short_description": "A place.",
+    "parent": 1
+  }
+},{
+  "model": "miot.category",
+  "pk": 25,
+  "fields": {
+    "name": "Movie Theater",
+    "slug": "movie-theater",
+    "emoji_name": null,
+    "short_description": "A place.",
+    "parent": 1
+  }
+},{
+  "model": "miot.category",
+  "pk": 26,
+  "fields": {
+    "name": "Museum",
+    "slug": "museum",
+    "emoji_name": null,
+    "short_description": "A place.",
+    "parent": 1
+  }
+},{
+  "model": "miot.category",
+  "pk": 27,
+  "fields": {
+    "name": "Night Club",
+    "slug": "night-club",
+    "emoji_name": null,
+    "short_description": "A place.",
+    "parent": 1
+  }
+},{
+  "model": "miot.category",
+  "pk": 28,
+  "fields": {
+    "name": "Park",
+    "slug": "park",
+    "emoji_name": null,
+    "short_description": "A place.",
+    "parent": 1
+  }
+},{
+  "model": "miot.category",
+  "pk": 29,
+  "fields": {
+    "name": "Parking",
+    "slug": "parking",
+    "emoji_name": null,
+    "short_description": "A place.",
+    "parent": 1
+  }
+},{
+  "model": "miot.category",
+  "pk": 30,
+  "fields": {
+    "name": "Pharmacy",
+    "slug": "pharmacy",
+    "emoji_name": null,
+    "short_description": "A place.",
+    "parent": 1
+  }
+},{
+  "model": "miot.category",
+  "pk": 31,
+  "fields": {
+    "name": "Restaurant",
+    "slug": "restaurant",
+    "emoji_name": null,
+    "short_description": "A place.",
+    "parent": 1
+  }
+},{
+  "model": "miot.category",
+  "pk": 32,
+  "fields": {
+    "name": "School",
+    "slug": "school",
+    "emoji_name": null,
+    "short_description": "A place.",
+    "parent": 1
+  }
+},{
+  "model": "miot.category",
+  "pk": 33,
+  "fields": {
+    "name": "Shopping Mall",
+    "slug": "shopping-mall",
+    "emoji_name": null,
+    "short_description": "A place.",
+    "parent": 1
+  }
+},{
+  "model": "miot.category",
+  "pk": 34,
+  "fields": {
+    "name": "Stadium",
+    "slug": "stadium",
+    "emoji_name": null,
+    "short_description": "A place.",
+    "parent": 1
+  }
+},{
+  "model": "miot.category",
+  "pk": 35,
+  "fields": {
+    "name": "Store",
+    "slug": "store",
+    "emoji_name": null,
+    "short_description": "A place.",
+    "parent": 1
+  }
+},{
+  "model": "miot.category",
+  "pk": 36,
+  "fields": {
+    "name": "Train Station",
+    "slug": "train-station",
+    "emoji_name": null,
+    "short_description": "A place.",
+    "parent": 1
+  }
+},{
+  "model": "miot.category",
+  "pk": 37,
+  "fields": {
+    "name": "University",
+    "slug": "university",
+    "emoji_name": null,
+    "short_description": "A place.",
+    "parent": 1
+  }
+},{
+  "model": "miot.category",
+  "pk": 38,
+  "fields": {
+    "name": "Zoo",
+    "slug": "zoo",
+    "emoji_name": null,
+    "short_description": "A place.",
+    "parent": 1
+  }
+}
+]

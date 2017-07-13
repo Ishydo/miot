@@ -1,0 +1,28 @@
+{% extends "dashboard/base.html" %}
+
+{% load hitcount_tags %}
+
+{% block title %}miot - Statistics{% endblock %}
+
+{% block content %}
+
+  <div class="col-5 pt-4">
+    <h1>Your points of interest</h1>
+    <div class="card">
+      <div class="card-block p-0">
+        <ul class="list-group list-group-flush">
+          {% for v in visits %}
+          <li class="list-group-item d-flex justify-content-between">
+            <div>
+              <a href="#">{{p.title}}</a>
+              <span class="text-muted">({{v.title}}) {{v.poi.name}} {% get_hit_count for v %}</span>
+            </div>
+          </li>
+          {% endfor %}
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+{% endblock %}

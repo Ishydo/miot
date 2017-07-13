@@ -1,0 +1,58 @@
+{% extends "dashboard/base.html" %}
+
+{% block title %}miot - Edit beacon{% endblock %}
+
+{% block content %}
+
+<div class="col-6 pt-4">
+
+  <h1>Preconfigure beacon</h1>
+  <p class="text-muted">You can preconfigure your beacon directly from this page.</p>
+
+  {% if pois.count > 0 %}
+
+  <form method="post" action="">
+    {% csrf_token %}
+
+    <div class="form-group">
+      <label>Beacon name</label>
+      <input type="text" class="form-control" name="beacon_name" value="{{beaconName}}">
+    </div>
+
+    <label>Broadcasted URL</label>
+    <select name="beacon_url" class="form-control">
+      {% for p in pois %}
+      <option value="{{p.short_url}}">{{p.name}}</option>
+      {% endfor %}
+    </select>
+
+
+    <!--  <input type="text" name="beacon_url" value="{{beaconUrl}}"> -->
+
+    <input type="hidden" name="beacon_identifier" value="{{identifier}}">
+
+    <div class="form-group">
+      <button type="submit" class="btn btn-primary mt-2" role="submit">Save</button>
+    </div>
+  </form>
+
+  {% else %}
+
+
+  <i class="fa fa-fw fa-map-marker fa-5x mb-3 text-muted"></i>
+  <h5><strong>You don't have any point of interest created yet</strong></h5>
+  <p class="text-muted">
+    You have to create at least one point of interest in order to set its URL
+    as the broadcasted one on this beacon.
+  </p>
+  <p>
+    <a href="{% url "about" %}" target="_blank" class="btn btn-info">Help page</a>
+    <a href="{% url "poi_create" %}" class="btn btn-primary">New point of interest</a>
+  </p>
+
+
+  {% endif %}
+
+</div>
+
+{% endblock %}

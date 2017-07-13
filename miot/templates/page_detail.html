@@ -1,0 +1,17 @@
+{% extends "page_templates/"|add:page.template.slug|add:".html" %}
+
+{% block title %}{{page.poi.name}} - {{page.title}}{% endblock %}
+{% block the_menu_title %}{{page.poi.name}}{% endblock %}
+{% block the_title %}{{page.title}}{% endblock %}
+{% block the_category %}{{page.poi.name}}{% endblock %}
+{% block the_bg %}{{page.poi.featured_image.url}}{% endblock %}
+
+{% block content %}
+
+<div class="container mt-4 pb-4">
+  <div class="content">
+    {{page.content|safe}}
+  </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,18 @@
+{% extends "dashboard/base.html" %}
+
+{% block title %}miot - Delete page{% endblock %}
+
+{% block content %}
+
+<div class="col-12 pt-4">
+  <h1>Delete page</h1>
+  <div class="alert alert-danger mt-3" role="alert">
+    <p><strong>Are you sure</strong> you want to delete {{object.title}} from {{object.poi.name}}?</p>
+    <form action="" method="post">
+      {% csrf_token %}
+      <input type="submit" class="btn btn-danger" value="Confirm" />
+    </form>
+  </div>
+</div>
+
+{% endblock %}

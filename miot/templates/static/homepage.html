@@ -1,0 +1,102 @@
+{% extends "layout/base.html" %}
+
+{% load render_bundle from webpack_loader %}
+{% load static %}
+
+{% block title %}miot Homepage{% endblock %}
+
+{% block styles %}
+{% render_bundle 'frontend' 'css' %}
+{% endblock %}
+
+{% block content %}
+
+
+<style>
+
+.main-button{
+  border-radius: 2px;
+  font-weight: bold;
+}
+
+</style>
+
+<div class="container-fluid cover p-0" style="background-image:url('{% static 'bg.jpg' %}');">
+  <div class="filter d-flex flex-column align-items-left justify-content-center">
+    <div class="container">
+      <div class="col-12">
+        <h1>miot</h1>
+        <p>A tool for <strong>you</strong> to create <strong>attractive content</strong> for the <strong>physical world</strong>.</p>
+
+        <a href="{% url "dashboard" %}" class="btn btn-danger main-button m-1"><i class="fa fa-fw fa-plus"></i>&nbsp;Contribute</a>
+        <a href="{% url "poi_list" %}" class="btn btn-info main-button m-1"><i class="fa fa-fw fa-globe"></i>&nbsp;Discover</a>
+        <a href="{% url "about" %}" class="btn btn-success main-button m-1"><i class="fa fa-fw fa-info"></i>&nbsp;More informations</a>&nbsp;
+
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container my-5">
+  <div class="d-flex flex-column flex-md-row row">
+    <div class="col-12 col-md-6">
+      <p class="text-muted">
+        <strong>miot</strong> is a tool for you to propose a unique experience for users,
+        visitors and curious people by defining places, events and points of interest and
+        attach attractive content to it.
+      </p>
+    </div>
+    <div class="col-12 col-md-6">
+      <p class="text-muted">
+        It takes two seconds to join by using one of your social accounts and you
+        are already ready to create your own points of interest by using your new
+        miot dashboard!
+      </p>
+    </div>
+  </div>
+</div>
+
+<div class="container mt-5">
+  <div class="row">
+    <div class="col-12 col-md-8">
+      <h1 class="display-4">miot users' best places</h1>
+      <p class="text-muted">
+        These are some of the most visited points of interest defined on this platform.
+        But there are more! Do not wait to create your own or to discover new places. All you need
+        is a few minutes and why not beacons.
+      </p>
+    </div>
+  </div>
+</div>
+
+
+<div class="container-fluid my-4 p-0">
+  <div class="col-12 p-0">
+    <div id="map-canvas"></div>
+  </div>
+</div>
+
+
+<div id="markers" style="display:none;">
+  [
+  {% for poi in pois %}
+  {
+    "name": "{{poi.name}}",
+    "slug": "{{poi.slug}}",
+    "href": "{% url "poi_detail" poi.slug %}",
+    "img": "{{ poi.featured_image.url }}",
+    "position": {
+      "lat": "{{poi.position.get_y}}",
+      "lon": "{{poi.position.get_x}}"
+    }
+  }{% if not forloop.last %},{% endif %}
+  {% endfor %}
+  ]
+</div>
+
+{% endblock %}
+
+{% block scripts %}
+{% render_bundle 'frontend' 'js' %}
+{% endblock %}

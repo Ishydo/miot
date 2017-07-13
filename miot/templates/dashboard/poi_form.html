@@ -1,0 +1,67 @@
+{% extends "dashboard/base.html" %}
+{% load add_css %}
+
+{% block title %}miot - New POI{% endblock %}
+
+{% block content %}
+
+
+<div class="col-8 pt-4">
+
+  <h1>{% if object %}Update{% else %}Add new{% endif %} Point Of Interest</h1>
+  <p class="text-muted">You can add a new point of interest through this page.</p>
+
+  <div class="col-12">
+
+    <div class="row">
+
+      <form action="" method="post" enctype="multipart/form-data" novalidate="">
+        {% csrf_token %}
+        {{form.media}}
+        <div class="form-group row {% if form.name.errors %}has-danger{% endif %}">
+          {{form.non_fields.errors}}
+          <div class="col-9">
+            <label for="formGroupExampleInput">Nom</label>
+            {{form.name|addclass:"form-control form-control-lg"}}
+            <div class="form-control-feedback">{% for e in form.name.errors %}{{e}}{% endfor %}</div>
+          </div>
+          <div class="col-3">
+            <label for="exampleInputFile">Logo</label>
+            {{form.featured_image|addclass:"form-control-file"}}
+            <div class="form-control-feedback">{% for e in form.featured_image.errors %}{{e}}{% endfor %}</div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="formGroupExampleInput">Category</label>
+          {{form.category|addclass:"form-control"}}
+          <div class="form-control-feedback">{% for e in form.category.errors %}{{e}}{% endfor %}</div>
+        </div>
+        <div class="form-group {% if form.position.errors %}has-danger{% endif %}">
+          <label for="formGroupExampleInput">Position</label>
+          {{form.position}}
+          <div class="form-control-feedback">{% for e in form.position.errors %}{{e}}{% endfor %}</div>
+        </div>
+        <div class="form-group {% if form.tags.errors %}has-danger{% endif %}">
+          <label for="formGroupExampleInput">Tags</label>
+          {{form.tags|addclass:"form-control"}}
+          <div class="form-control-feedback">{% for e in form.tags.errors %}{{e}}{% endfor %}</div>
+        </div>
+        <div class="form-check">
+          <label class="form-check-label">
+            {{form.active|addclass:"form-check-input"}}
+            <div class="form-control-feedback">{% for e in form.active.errors %}{{e}}{% endfor %}</div>
+            Active
+          </label>
+        </div>
+        <button type="submit" class="btn btn-primary">{% if object %}Update{% else %}Create{% endif %}</button>
+      </form>
+
+    </div>
+  </div>
+</div>
+
+{% endblock %}
+
+{% block scripts %}
+
+{% endblock %}

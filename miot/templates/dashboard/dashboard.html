@@ -1,0 +1,309 @@
+{% extends "dashboard/base.html" %}
+{% load render_bundle from webpack_loader %}
+{% load static %}
+
+{% block title %}miot - Dashboard{% endblock %}
+
+{% block content %}
+
+<div class="col-12 pt-4">
+
+  {% if messages %}
+  {% for message in messages %}
+  {% if "poi_created" in message.extra_tags %}
+  <div class="modal fade bd-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="pageCreatedModal" id="pageCreatedModal" aria-hidden="true">
+    <div class="modal-dialog modal-sm">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Start editing content</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <p><strong>Your point of interest was successfully created.</strong></p>
+          <p>A default empty content page was created too, you can start editing its content now!</p>
+        </div>
+        <div class="modal-footer">
+          <a href="{% url "page_update" lastPOI.page_set.first.slug %}" class="btn btn-primary"><i class="fa fa-fw fa-file-text-o"></i>&nbsp;Edit page content</a>
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script type="text/javascript">$("#pageCreatedModal").modal()</script>
+  {% endif %}
+  <div class="alert alert-{% if message.tags %}{% if "info" in message.tags %}info{% else %}{{ message.tags }}{% endif %}{% endif %} alert-dismissible fade show" role="alert">
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+    {{ message|safe }}
+  </div>
+  {% endfor %}
+  {% endif %}
+
+  <div class="row dashboard-top-row pb-4">
+
+    <div class="col-12 dashboard-top-card col-sm-3">
+      <div class="container card p-0">
+        <div class="col-12 d-flex p-3 card-warning" id="card-beacon">
+          <div class="col-2">
+            <i class="fa fa-podcast fa-5x" aria-hidden="true"></i>
+          </div>
+          <div class="col-10 d-flex flex-column align-items-end">
+            <h1>{% if beaconsToConfigure %}0{% else %}{{nbBeacons}}{% endif %}</h1>
+            <p>Registered beacons</p>
+          </div>
+        </div>
+        <div class="col-12 py-2">
+          <a href="{% url "beacon_manage" %}"><i class="fa fa-arrow-right" aria-hidden="true"></i>&nbsp;Manage beacons</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-12 dashboard-top-card col-sm-3">
+      <div class="container card p-0">
+        <div class="col-12 d-flex p-3 card-primary" id="card-poi">
+          <div class="col-2">
+            <i class="fa fa-map-marker fa-5x" aria-hidden="true"></i>
+          </div>
+          <div class="col-10 d-flex flex-column align-items-end">
+            <h1>{{pois.count}}</h1>
+            <p>Points of Interest</p>
+          </div>
+        </div>
+        <div class="col-12 py-2">
+          <a href="{% url "poi_manage" %}"><i class="fa fa-arrow-right" aria-hidden="true"></i>&nbsp;Manage Points of interest</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-12 dashboard-top-card col-sm-3">
+      <div class="container card p-0">
+        <div class="col-12 d-flex p-3 card-danger">
+          <div class="col-2">
+            <i class="fa fa-file-text-o fa-5x" aria-hidden="true"></i>
+          </div>
+          <div class="col-10 d-flex flex-column align-items-end">
+            <h1>{{pages.count}}</h1>
+            <p>Unique pages</p>
+          </div>
+        </div>
+        <div class="col-12 py-2">
+          <a href="{% url "page_manage" %}"><i class="fa fa-arrow-right" aria-hidden="true"></i>&nbsp;Manage pages</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-12 dashboard-top-card col-sm-3">
+      <div class="container card p-0">
+        <div class="col-12 d-flex p-3 card-success">
+          <div class="col-2">
+            <i class="fa fa-dot-circle-o fa-5x" aria-hidden="true"></i>
+          </div>
+          <div class="col-10 d-flex flex-column align-items-end">
+            <h1>{{total_hits}}</h1>
+            <p>Unique visits</p>
+          </div>
+        </div>
+        <div class="col-12 py-2">
+          <a href="{% url "statistics" %}"><i class="fa fa-arrow-right" aria-hidden="true"></i>&nbsp;View statistics</a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="row my-3">
+
+    <div class="col-12 col-sm-8">
+      <div class="card">
+        <div class="card-header">
+          Your Point of Interests Geographically
+        </div>
+        <div class="card-block p-0">
+          {% if pois.count > 0 %}
+          <div id="map-canvas" class="bordered"></div>
+          {% else %}
+          <div class="col-8">
+            <div class="p-4">
+              <i class="fa fa-fw fa-map-marker fa-5x mb-3 text-muted"></i>
+              <h5><strong>You don't have any point of interest created yet</strong></h5>
+              <p class="text-muted">
+                It seems like you do not created any content on the platform yet.
+                You can directly start by creating a point of interest or go on the help
+                page for more informations about the concept.
+              </p>
+              <p>
+                <a href="#" class="btn btn-info">Help page</a>
+                <a href="{% url "poi_create" %}" class="btn btn-primary">New point of interest</a>
+              </p>
+            </div>
+          </div>
+          {% endif %}
+
+        </div>
+      </div>
+
+    </div>
+    <div class="col-12 col-sm-4">
+      <div class="card">
+        <div class="card-header">
+          Beacons
+        </div>
+        <div class="card-block p-0">
+          <div class="list-group list-group-flush">
+
+
+            {% for b in beacons %}
+            <div class="list-group-item w-100 d-flex justify-content-between">
+              <div>
+                <img src="{% static "smallbeac.png" %}" alt="Beacon" class="mt-3 mr-2" />
+                <div class="d-inline-flex flex-column">
+                  {{b.shadow.name}}<br />
+                  <small class="text-muted">{{b.identifier}}</small>
+                </div>
+              </div>
+              <a href="{% url "beacon_update" b.identifier %}" class="btn btn-sm btn-secondary">Update</a>
+            </div>
+
+            {% empty %}
+
+            {% if beaconsToConfigure %}
+            <div class="list-group-item">
+              <img src="https://insideoutdoor.com/wp-content/uploads/2016/02/beacon-example31.png">
+              <h5><strong>Estimote app not configured</strong></h5>
+              <p class="text-muted">In order to use this feature, please configure an estimote app in your profile options.</p>
+              <p>
+                <a href="#" class="btn btn-info">How to do it</a>
+                <a href="{% url "profile_update" request.user.profile.pk %}" class="btn btn-success">Configure app in profile</a>
+              </p>
+            </div>
+            {% else %}
+            <div class="list-group-item">
+              <p><strong>No beacons detected through API.</strong></p>
+            </div>
+            {% endif %}
+
+            {% endfor %}
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+
+  <div class="row">
+
+    <div class="col-12 col-sm-4">
+      <div class="card">
+        <div class="card-header">
+          Last Points Of Interest
+        </div>
+        <div class="card-block p-0">
+          <ul class="list-group list-group-flush">
+            {% for p in pois|slice:":5" %}
+            <li class="list-group-item d-flex justify-content-between">
+              <a href="{% url "poi_detail" p.slug %}">{{p.name}}</a>
+              <div class="btn-group" role="group">
+                <button id="btnGroupActionsPoi" type="button" class="btn btn-secondary btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  Actions
+                </button>
+                <div class="dropdown-menu" aria-labelledby="btnGroupActionsPoi">
+                  <a href="{% url "poi_update" p.slug %}" class="dropdown-item">Update</a>
+                  <a href="{% url "poi_page_update" p.slug %}" class="dropdown-item">Edit pages</a>
+                  <a href="{% url "page_create" p.slug %}" class="dropdown-item">Add page</a>
+                  <a href="{% url "poi_delete" p.slug %}" class="dropdown-item">Delete</a>
+                </div>
+              </div>
+            </li>
+            {% empty %}
+            <li class="list-group-item">
+              <div>
+                <i class="fa fa-map-marker fa-5x fa-fw text-muted mb-3" aria-hidden="true"></i>
+                <h5><strong>No points of interest yet</strong></h5>
+                <p class="text-muted">Please create your first point of interest to unlock the full power of miot.</p>
+              </div>
+            </li>
+            {% endfor %}
+          </ul>
+        </div>
+        <div class="card-footer">
+          <a href="{% url "poi_create" %}"><i class="fa fa-plus" aria-hidden="true"></i>&nbsp;Create New Points of interest</a>
+        </div>
+      </di>
+    </div>
+  </div>
+
+
+
+  <div class="col-12 col-sm-4 mb-4">
+    <div class="card">
+      <div class="card-header">
+        Last Pages
+      </div>
+      <div class="card-block p-0">
+        <ul class="list-group list-group-flush">
+          {% for page in pages|slice:":5" %}
+          <li class="list-group-item d-flex justify-content-between">
+            <div>
+              {{page.title}} <i class="text-muted">({{page.poi.name}})</i>
+            </div>
+
+            <div class="btn-group" role="group">
+              <button id="btnGroupActionsPoi" type="button" class="btn btn-secondary btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Actions
+              </button>
+              <div class="dropdown-menu" aria-labelledby="btnGroupActionsPoi">
+                <a href="{% url "page_update" page.slug %}" class="dropdown-item">Update</a>
+                <a href="{% url "page_delete" page.slug %}" class="dropdown-item">Delete</a>
+              </div>
+            </div>
+          </li>
+          {% empty %}
+          <li class="list-group-item">
+            <div>
+              <i class="fa fa-plus fa-5x fa-file-text text-muted mb-3" aria-hidden="true"></i>
+              <h5><strong>No points of interest, no pages</strong></h5>
+              <p class="text-muted">You have to create at least one point of interest before adding pages.</p>
+            </div>
+          </li>
+          {% endfor %}
+        </ul>
+      </div>
+      {% if pois.count > 0 %}
+      <div class="card-footer">
+        <a href="{% url "poi_select" %}"><i class="fa fa-plus" aria-hidden="true"></i>&nbsp;Create a new page</a>
+      </div>
+      {% endif %}
+    </di>
+  </div>
+</div>
+
+
+
+<div id="markers" style="display:none;">
+  [
+  {% for poi in pois %}
+  {
+    "name": "{{poi.name}}",
+    "slug": "{{poi.slug}}",
+    "position": {
+      "lat": "{{poi.position.get_y}}",
+      "lon": "{{poi.position.get_x}}"
+    }
+  }{% if not forloop.last %},{% endif %}
+  {% endfor %}
+  ]
+</div>
+{% endblock %}
+
+{% block scripts %}
+<!-- Loading dashboardmap specific scripts -->
+{% render_bundle 'dashboardmap' 'js' %}
+
+
+
+{% endblock %}
