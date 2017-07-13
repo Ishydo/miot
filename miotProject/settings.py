@@ -16,13 +16,13 @@ import os
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 MIOT_LONG_URL_POI = "https://miot.infinit8.io/p"
-MIOT_BITLY = os.environ.get('MIOT_BITLY', False),
+MIOT_BITLY = os.environ.get('MIOT_BITLY', False)
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.11/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ.get('MIOT_SECRET', False),
+SECRET_KEY = os.environ.get('MIOT_SECRET', False)
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
