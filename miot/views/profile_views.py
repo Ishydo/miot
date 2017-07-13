@@ -15,6 +15,7 @@ class Dashboard(LoginRequiredMixin, TemplateView):
         context, context["pois"] = {}, request.user.profile.fetch_points_of_interests()
         context["pages"] = request.user.profile.fetch_pages()
         context["API_KEY"] = settings.MAP_WIDGETS["GOOGLE_MAP_API_KEY"]
+        context["lastPOI"] = context["pois"].last()
         hitsCounter = request.user.profile.fetch_points_of_interests_hits()
         context["total_hits"] = 0 if hitsCounter["hits__sum"] is None else hitsCounter["hits__sum"]
 

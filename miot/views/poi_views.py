@@ -3,16 +3,12 @@ from miot.models import PointOfInterest, Page, Profile, Category, get_near_poi
 from miot.forms import PointOfInterestForm
 from django.utils.safestring import mark_safe
 from django.shortcuts import render
-
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.messages.views import SuccessMessageMixin
 from django.contrib import messages
-
 from django.db.models import Q
-
 from hitcount.views import HitCountDetailView
 from hitcount.models import HitCount
-
 from functools import reduce
 
 
@@ -107,10 +103,11 @@ class PointOfInterestCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateV
     form_class=PointOfInterestForm
     template_name = "dashboard/poi_form.html"
     success_url="/dashboard"
-    success_message = "%(name)s point of interest was created successfully"
+    success_message = "<strong>%(name)s</strong> point of interest was successfully created."
 
     def form_valid(self, form):
         form.instance.creator = self.request.user.profile
+        messages.add_message(self.request, messages.INFO, "Page successfully created", extra_tags='poi_created')
         return super(PointOfInterestCreateView, self).form_valid(form)
 
 class PointOfInterestUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):

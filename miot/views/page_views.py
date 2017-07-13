@@ -3,6 +3,7 @@ from miot.models import Page, PointOfInterest
 from miot.forms import PointOfInterestForm, PageForm
 from django.http import HttpResponse
 from django.db.models import F
+from django.db import transaction
 
 from django.contrib.messages.views import SuccessMessageMixin
 from django.contrib import messages
@@ -75,8 +76,15 @@ class ChangeOrder(View):
         newIndex = request.POST.get("newIndex")
 
         if newIndex > oldIndex:
-            ps = Page.objects.filter(poi=PointOfInterest.objects.get(pk=request.POST.get("poi")), index__lte=newIndex)
-            ps.update(index= F('index') - 1)
+            lPages = Page.objects.filter(poi=PointOfInterest.objects.get(pk=request.POST.get("poi")), index__lte=newIndex).filter(index__gte=oldIndex).exclude(index=oldIndex)
+            lPages.update(index= F('index') - 1)
         else:
-            pass
+            lPages = Page.objects.filter(poi=PointOfInterest.objects.get(pk=request.POST.get("poi")), index__gte=newIndex).filter(index__lte=oldIndex).exclude(index=oldIndex)
+            lPages.update(index= F('index') + 1)
+        cPage = Page.objects.filter(poi=PointOfInterest.objects.get(pk=request.POST.get("poi")), index=oldIndex).order_by("last_updated")
+        p = cPage.first()
+        p.index=newIndex
+        p.save()
+
+
         return HttpResponse("ok")
