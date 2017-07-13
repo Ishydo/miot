@@ -1,5 +1,6 @@
 {% extends "dashboard/base.html" %}
 
+{% block title %}miot - Manage pages{% endblock %}
 
 {% block content %}
 
@@ -16,7 +17,7 @@
         <li class="list-group-item d-flex justify-content-between">
           <div>
             {{p.title}}<br/>
-            <small class="text-muted p-0 m-0">{{p.poi.name}}</small>
+            <small class="text-muted p-0 m-0">{{p.poi.name}} - {{ p.poi.hit_count.hits }} visits</small>
           </div>
           <div>
             <a href="{% url "page_update" p.slug %}" class="btn btn-primary btn-sm">Update</a>

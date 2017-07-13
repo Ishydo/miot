@@ -1,9 +1,8 @@
 {% extends "dashboard/base.html" %}
-
 {% load render_bundle from webpack_loader %}
 {% load static %}
 
-{% block title %}miot Dashboard{% endblock %}
+{% block title %}miot - Dashboard{% endblock %}
 
 {% block content %}
 
@@ -11,11 +10,34 @@
 
   {% if messages %}
   {% for message in messages %}
-  <div class="alert alert-{% if message.tags %}{{ message.tags }}{% endif %} alert-dismissible fade show" role="alert">
+  {% if "poi_created" in message.extra_tags %}
+  <div class="modal fade bd-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="pageCreatedModal" id="pageCreatedModal" aria-hidden="true">
+    <div class="modal-dialog modal-sm">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Start editing content</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <p><strong>Your point of interest was successfully created.</strong></p>
+          <p>A default empty content page was created too, you can start editing its content now!</p>
+        </div>
+        <div class="modal-footer">
+          <a href="{% url "page_update" lastPOI.page_set.first.slug %}" class="btn btn-primary"><i class="fa fa-fw fa-file-text-o"></i>&nbsp;Edit page content</a>
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script type="text/javascript">$("#pageCreatedModal").modal()</script>
+  {% endif %}
+  <div class="alert alert-{% if message.tags %}{% if "info" in message.tags %}info{% else %}{{ message.tags }}{% endif %}{% endif %} alert-dismissible fade show" role="alert">
     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
       <span aria-hidden="true">&times;</span>
     </button>
-    {{ message }}
+    {{ message|safe }}
   </div>
   {% endfor %}
   {% endif %}
@@ -281,5 +303,7 @@
 {% block scripts %}
 <!-- Loading dashboardmap specific scripts -->
 {% render_bundle 'dashboardmap' 'js' %}
+
+
 
 {% endblock %}

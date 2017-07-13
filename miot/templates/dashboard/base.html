@@ -23,8 +23,6 @@
 
       <!-- Button trigger modal -->
       <div class="actions pt-1">
-
-        <i class="fa fa-bell fa-fw"></i>&nbsp;
         <a href="{% url "about" %}" target="_blank"><i class="fa fa-question-circle fa-fw"></i></a>
         <a href="#" data-toggle="modal" data-target="#infoModal"><i class="fa fa-info-circle fa-fw"></i></a>&nbsp;
         <a href="{% url "account_logout" %}" class="btn btn-danger mb-2">Logout</a>
@@ -74,8 +72,11 @@
       <div class="container-fluid d-flex col-12 col-sm-10">
         {% block content %}{% endblock %}
       </div>
+
+
     </div>
   </div>
+
 
 
   <!-- Modal -->
@@ -113,6 +114,7 @@
       </div>
     </div>
   </div>
+
 
 
   <!-- Loading dashboard specific scripts -->

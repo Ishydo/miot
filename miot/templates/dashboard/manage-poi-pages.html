@@ -1,10 +1,13 @@
 {% extends "dashboard/base.html" %}
 
+{% block title %}miot - Manage POI{% endblock %}
 
 {% block content %}
 
-<div class="container">
-  <h1>Edit pages of {{poi.name}}</h1>
+<div class="col-12 pt-4">
+
+  <h1>Edit pages for {{poi.name}}</h1>
+  <p class="text-muted">You can choose to edit or reorder the pages.</p>
 
 
   <ul class="list-group" id="dashPageList">
@@ -18,10 +21,20 @@
         <span class="my-handle"><i class="fa fa-bars fa-fw" aria-hidden="true"></i></span>
         {{page.title}}
       </div>
-      <span class="badge badge-default badge-pill">{{page.index}}</span>
+      <div>
+        <span class="badge badge-default badge-pill">{{page.index}}</span>
+        <a href="{% url "page_update" page.slug %}" class="btn btn-primary btn-sm">Update</a>
+        {% if page.poi.page_set.count == 1 %}
+        <span class="tooltip-wrapper" data-toggle="tooltip" data-placement="top" title="Cannot delete if it's the only page.">
+          <a href="#" class="disabled btn btn-primary btn-danger btn-sm">Delete</a>
+        </span>
+        {% else %}
+        <a href="{% url "page_delete" page.slug %}" class="btn btn-primary btn-danger btn-sm">Delete</a>
+
+        {% endif %}
+      </div>
+
     </li>
-
-
     {% endfor %}
   </ul>
 </div>
@@ -29,8 +42,13 @@
 
 
 
-<script>
-console.log("ok");
+{% endblock %}
+
+
+{% block scripts %}
+
+<script type="text/javascript">
+console.log("oksort");
 console.log(document.getElementById("dashPageList"));
 // List with handle
 Sortable.create(document.getElementById("dashPageList"), {
@@ -39,6 +57,10 @@ Sortable.create(document.getElementById("dashPageList"), {
   onEnd: function (/**Event*/evt) {
     evt.oldIndex;  // element's old index within parent
     evt.newIndex;  // element's new index within parent
+
+    console.log("Old / New")
+    console.log(evt.oldIndex)
+    console.log(evt.newIndex)
 
     $.ajax({
       type:"POST",
@@ -59,8 +81,5 @@ Sortable.create(document.getElementById("dashPageList"), {
 });
 
 </script>
-
-
-
 
 {% endblock %}

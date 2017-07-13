@@ -1,13 +1,15 @@
 {% extends "dashboard/base.html" %}
-
 {% load add_css %}
+
+{% block title %}miot - New page{% endblock %}
 
 {% block content %}
 
 
 <div class="col-8 pt-4">
 
-  <h1>Add new Page</h1>
+
+  <h1>{% if object %}Update{% else %}Add new{% endif %} Page</h1>
   <p class="text-muted">You can add a new point of interest through this page.</p>
 
   <form action="" method="post" enctype="multipart/form-data">
@@ -32,12 +34,7 @@
     </div>
 
 
-
-
-
-
-
-    <input type="submit" value="Save" />
+    <input type="submit" value="{% if object %}Update{% else %}Create{% endif %}" class="btn btn-primary" />
   </form>
 
 </div>
