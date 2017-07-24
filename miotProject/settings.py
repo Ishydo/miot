@@ -15,8 +15,8 @@ import os
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-MIOT_LONG_URL_POI = "https://miot.infinit8.io/p",
-MIOT_BITLY = os.environ.get('MIOT_BITLY', False),
+MIOT_LONG_URL_POI = "https://miot.infinit8.io/p"
+MIOT_BITLY = os.environ.get('MIOT_BITLY', False)
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.11/howto/deployment/checklist/
@@ -53,7 +53,8 @@ INSTALLED_APPS = [
     'allauth.socialaccount.providers.twitter',
     'webpack_loader',
     'hitcount',
-    'miot'
+    'miot',
+    'django.contrib.admindocs',
 ]
 
 MIDDLEWARE = [

@@ -6,4 +6,6 @@ def get_short_url(long_url):
     '''This uses bit.ly to get a short url entering in the beacon config'''
     r = requests.get("https://api-ssl.bitly.com/v3/shorten?access_token={0}&longUrl={1}".format(MIOT_BITLY, long_url))
     response = json.loads(r.text)
+    print("https://api-ssl.bitly.com/v3/shorten?access_token={0}&longUrl={1}".format(MIOT_BITLY, long_url))
+    print(response["data"]["url"])
     return response["data"]["url"]

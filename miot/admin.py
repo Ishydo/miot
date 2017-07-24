@@ -8,6 +8,7 @@ class PointOfInterestAdmin(admin.ModelAdmin):
         gmodels.PointField: {"widget": GooglePointFieldWidget}
     }
 
+# Registering the models to be accessible in admin
 admin.site.register(PointOfInterest, PointOfInterestAdmin)
 admin.site.register(Page)
 admin.site.register(Template)
