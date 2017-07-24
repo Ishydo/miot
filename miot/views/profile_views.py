@@ -20,7 +20,7 @@ class Dashboard(LoginRequiredMixin, TemplateView):
         # Get the google map api key
         context["API_KEY"] = settings.MAP_WIDGETS["GOOGLE_MAP_API_KEY"]
         # Get the last point of interest created
-        context["lastPOI"] = context["pois"].last()
+        context["lastPOI"] = context["pois"].first()
         # Get the total number of visits
         hitsCounter = request.user.profile.fetch_points_of_interests_hits()
         context["total_hits"] = 0 if hitsCounter["hits__sum"] is None else hitsCounter["hits__sum"]
