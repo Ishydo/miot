@@ -21,6 +21,7 @@ from django.contrib.auth.views import logout
 
 urlpatterns = [
     url(r'^', include('miot.urls')),
+    url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
     url(r'^admin/', admin.site.urls),
     url(r'^accounts/logout/$', logout, {'next_page': '/'}),
     url(r'^accounts/', include('allauth.urls')),

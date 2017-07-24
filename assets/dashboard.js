@@ -1,5 +1,6 @@
 console.log("Loading dashboard JS.")
 
+// Plugin for friendly tag input
 import 'jquery-tags-input/dist/jquery.tagsinput.min.css'
 import 'jquery-tags-input/dist/jquery.tagsinput.min.js'
 import './tags.js'
@@ -10,6 +11,7 @@ import 'tinymce/themes/modern/theme.min.js'
 import 'tinymce/skins/lightgray/skin.min.css'
 import 'tinymce/plugins/code'
 
+// Initialisation of the tinymce editor
 tinymce.init({
   selector: ".tinymce-editor",
   skin: false,
@@ -31,7 +33,8 @@ tinymce.init({
 }
 });
 
+// Plugin used to sort the pages on the list page
 import 'sortablejs'
 
-// The CSS
+// The dashboard CSS
 import './dashboard.css'

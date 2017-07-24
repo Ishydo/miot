@@ -1,5 +1,4 @@
-console.log("Hello world")
-
+// Tags input plugin config
 $(() => {
   $('.tags-input').tagsInput({
     'defaultText':'Add a tag',

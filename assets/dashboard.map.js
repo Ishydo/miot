@@ -44,6 +44,7 @@ GoogleMapsLoader.load(function(google) {
 
   });
 
+    // Map unique style
     var styledMapType = new google.maps.StyledMapType([
     {
       "featureType": "poi.business",

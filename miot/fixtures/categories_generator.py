@@ -1,6 +1,8 @@
 from slugify import slugify
 
 place_index = 1;
+
+# Array of places by Google
 places_categories = [
           "Airport",
           "Amusement Park",
@@ -43,6 +45,7 @@ places_categories = [
 
 str = ""
 
+# JSON string generation loop with categories
 for i, pc in enumerate(places_categories):
     str += '''{{
           'model': 'miot.category',
@@ -56,4 +59,5 @@ for i, pc in enumerate(places_categories):
           }}
         }},'''.format(i+place_index+1, pc, slugify(pc))
 
+# Print the final JSON string
 print(str.replace("\'", "\""))

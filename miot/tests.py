@@ -4,6 +4,7 @@ from django.contrib.auth.models import User
 from miot.models import Template, Category, Profile
 
 class TemplateTestCase(TestCase):
+    '''Test the ability to create a template.'''
     def create_template(self):
         return Template.objects.create(name="TestTemplate", short_description="Test template descrpition.")
 
@@ -13,6 +14,7 @@ class TemplateTestCase(TestCase):
         self.assertEqual(t.name, "TestTemplate")
 
 class UserTestCase(TestCase):
+    '''Test the ability to create an user.'''
     def create_user(self):
         return User.objects.create(username="Bryan", email="bryan@bryan.com", password="password")
 
@@ -23,6 +25,7 @@ class UserTestCase(TestCase):
         self.assertEqual(u.username, "Bryan")
 
 class CategoryTestCase(TestCase):
+    '''Test the ability to create a category.'''
     def create_category(self):
         return Category.objects.create(name="Food", short_description="Food stuff.")
 
